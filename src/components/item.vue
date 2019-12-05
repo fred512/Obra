@@ -20,9 +20,8 @@
             :class="{'filtrado':mostraalerta}"></i>
           <i class="fa fa-plus-square fa-1x text-light" @click="addRow()" title="Inserir Item"></i>
         </div>
-      </div> 
+      </div>
     </div>
-    teste de alteração
     <div class="tr" v-for="(item,i) in itens" :key="i" @keyup.esc="saiSemGravar(item)" 
         :class="{'composicao':item.composicao,'erro':item.erro.length,'LinhaPar':i%2==0,
         'Selected':item.selecionado,'alerta':item.alerta.length,
@@ -109,8 +108,7 @@
           </div>
         </div>
       </div>
-      <b-popover :target="'info-'+i" triggers="hover" placement="left" variant="info"
-          >
+      <b-popover :target="'info-'+i" triggers="hover" placement="left" variant="info">
         <template v-slot:title>Detalhes do Item</template>
         <b-row class="infoItem">
           <div>
