@@ -87,7 +87,7 @@ body{
   border-radius: 5px;
   flex-grow: 1;
   /* max-height: 65vh !important; */
-  max-width: calc(98%) !important;
+  width: calc(98%) !important;
   margin:5px auto;
   color:#4472C4;
   overflow: auto;
