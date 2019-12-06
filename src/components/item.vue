@@ -2,15 +2,15 @@
 <div class="conteudoGrid" :class="{'zoom':zoom}">
   <div class="table">
     <div class="tr header" @dblclick="zoom=!zoom">
-      <div class="td header" >Item</div>
-      <div class="td header">Orgão</div>
-      <div class="td header">Código</div>
-      <div class="td header">Descrição</div>
-      <div class="td header">Unid</div>
-      <div class="td header">Qtde&nbsp;</div>
-      <div class="td header">Valor Unit</div>
-      <div class="td header">Valor Total</div>
-      <div class="td header">
+      <div class="td header" style="width:9%" >Item</div>
+      <div class="td header" style="width:9%">Orgão</div>
+      <div class="td header" style="width:9%">Código</div>
+      <div class="td header" style="width:30%">Descrição</div>
+      <div class="td header" style="width:5%">Unid</div>
+      <div class="td header" style="width:9%">Qtde&nbsp;</div>
+      <div class="td header" style="width:9%">Valor Unit</div>
+      <div class="td header" style="width:9%">Valor Total</div>
+      <div class="td header" style="width:10%">
         <div class="acao">
           <i class="fa fa-times-circle-o text-danger fa-1x" 
             @click="mostraalerta=false;mostraerro=!mostraerro;"
@@ -267,7 +267,7 @@ export default {
         for (var i=0;i<Object.keys(res.data).length;i++){
           if (flag&&res.data[i].base==base) regs.push(res.data[i])
           if (!flag&&res.data[i].base!==base) regs.push(res.data[i])
-          if (regs.length>0) return
+          if (regs.length>0) i=Object.keys(res.data).length
         }
         this.registrosOrgao=regs
         this.$forceUpdate()
@@ -343,6 +343,7 @@ export default {
       item.edita=false
       var i=item.id
       this.ItensPesquisados=[]
+      this.registrosOrgao=[]
       this.jafoi=false
       this.emcima=false
       if (item.descr=='') this.itens.splice(i,1)
@@ -589,6 +590,7 @@ export default {
     /* font-size: 0.9rem; */
     color: #4472c4;
     padding: 1px;
+    font-size: .9rem;
     text-align: center;
     background-color: transparent;
     border:none;
@@ -597,16 +599,8 @@ export default {
   }
   .table > .tr > .td:nth-child(1) {
     width: fit-content;
-    min-width: 6vw;
-  }
-  .table > .tr > .td:nth-child(2) {
-    min-width: 9vw;
-  }
-  .table > .tr > .td:nth-child(3) {
-    width: 10vw !important;
   }
   .table > .tr > .td:nth-child(4){
-    min-width: 30vw;
     text-align: left;
   }
   .table > .tr.header> .td:nth-child(6),
@@ -616,7 +610,7 @@ export default {
   .table > .tr.header> .td:nth-child(7) ,
   .table > .tr > .td:nth-child(7) div ,
   .table > .tr > .td:nth-child(7) input {
-    width: fit-content;
+    /* width: fit-content; */
     max-width: 160px;;
   }
   .table > .tr.header> .td:nth-child(6) ,
@@ -648,7 +642,7 @@ export default {
     text-transform: uppercase;
   }
   #descr{
-    width: 90%;
+    /* width: 90%; */
     height: 35px;
   }
   label{

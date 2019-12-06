@@ -18,7 +18,7 @@ export default {
 
 <style>
   .progresso{
-    width: 85%;
+    width: 65%;
     margin: 10px auto !important;
     background-color: #795548 !important;
   }
@@ -26,11 +26,11 @@ export default {
     width: 90% !important;
     margin-top: 0;
     height: 3.5rem;
-    position: fixed;
+    position: relative;
     border-radius: 4px;
     z-index: 1;
     top: 40vh;
-    left: 5%;
+    left: 2%;
     background-color: #795548;
   }
 </style>
