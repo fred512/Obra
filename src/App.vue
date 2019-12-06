@@ -24,7 +24,7 @@
       </keep-alive>
     </div>
     <div class="banner">
-
+      <img src="./assets/banner.png" alt="">
     </div>
   </div>
 </template>
@@ -70,11 +70,11 @@ body{
   display: grid;
   max-width: calc(98vw);
   grid-template-rows: 10vh 79vh 10vh;
-  grid-template-columns: 1fr 10px;
+  grid-template-columns: 1fr 100px;
   grid-template-areas: 
     "cabecalho cabecalho"
     "conteudo banner"
-    "rodape banner";
+    "rodape rodape";
   width: 100vw;
   height: 100vh;
   background-size: cover;
@@ -95,16 +95,21 @@ body{
 }
 .banner{
   grid-area: banner;
-  height: 100%;
   background-color: #6c757d;
+  margin:5% ;
+  margin-right: 0;
+  border-radius: 5px;
+}
+.banner img{
+  width: 100%;
+  height: auto;
 }
 .rodape{
-  max-width: 98vw;
   height: 90%;
   grid-area: rodape;
   background-color: rgba(119, 119, 119, 0.1);
-  width: 98%;
-  margin: 5px auto;
+  width: calc(99%);
+  margin: 5px 0 5px 1%;
   margin-bottom: 5px;
   border-radius: 5px;
   -webkit-box-shadow: inset 0px 0px 8px 1px rgba(0,0,0,0.35);

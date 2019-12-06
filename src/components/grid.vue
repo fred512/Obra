@@ -33,7 +33,7 @@ export default {
 <style>
   .divGrid{
     display: flex;
-    max-width: 98vw;
+    width:calc(100%)
   }
   .divGrid table >thead >th{
     max-width: 98vw;
