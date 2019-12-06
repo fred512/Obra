@@ -24,8 +24,10 @@
       </keep-alive>
     </div>
     <div class="banner">
-      <div v-if="local.indexOf('www.gigogvt')>-1||local.indexOf('localhost:8082')>-1">
-        <img src="./assets/bannercaixa.png" alt="">
+      <div v-if="local.indexOf('www.gigovvt')>-1||local.indexOf('localhost:8082')>-1">
+        <img src="./assets/logo-GIGOV-200x168.png" alt="">
+        <img src="./assets/reuni.png" alt="">
+        <img src="./assets/riscocaixa.png" alt="">
       </div>
       <div v-else>
         <img src="./assets/banner.png" alt="">
@@ -107,6 +109,9 @@ body{
   grid-area: banner;
   background-color: #4472C4;
   margin:5% ;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   margin-right: 0;
   border-radius: 5px;
   display: flex;
@@ -116,6 +121,8 @@ body{
 .banner img{
   width: 90%;
   height: auto;
+  margin: 1vh auto;
+  border-radius: 5px;
 }
 .rodape{
   height: 90%;
