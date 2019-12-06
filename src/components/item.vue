@@ -268,7 +268,7 @@ export default {
         for (var i=0;i<Object.keys(res.data).length;i++){
           if (flag&&res.data[i].base==base) regs.push(res.data[i])
           if (!flag&&res.data[i].base!==base) regs.push(res.data[i])
-          if (regs.length>0) return
+          if (regs.length>0) i=Object.keys(res.data).length
         }
         this.registrosOrgao=regs
         this.$forceUpdate()
@@ -344,6 +344,7 @@ export default {
       item.edita=false
       var i=item.id
       this.ItensPesquisados=[]
+      this.registrosOrgao=[]
       this.jafoi=false
       this.emcima=false
       if (item.descr=='') this.itens.splice(i,1)

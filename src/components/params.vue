@@ -40,7 +40,6 @@
         <i class="fa fa fa-trash fa-2x text-danger" aria-hidden="true"></i>
       </div>
     </div>
-    <Progress :progressstate="progressstate" :max="max" />
     <b-modal id="modal-2" size="xl" hide-footer centered title="Carrega Planilha .xlsx">
       <div class="d-block" style="text-align: center !important;">
         <span class="titulo">
@@ -133,6 +132,7 @@
         Deseja atualizar os itens desta planilha com base nessa alteração?
       </p>
     </b-modal>
+    <Progress :progressstate="progressstate" :max="max" />
     <Loading :loading="lendo"/>
   </div>
 </template>

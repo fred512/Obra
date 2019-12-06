@@ -99,6 +99,9 @@ body{
   margin:5% ;
   margin-right: 0;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .banner img{
   width: 100%;
