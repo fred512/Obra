@@ -24,7 +24,12 @@
       </keep-alive>
     </div>
     <div class="banner">
-      <img src="./assets/banner.png" alt="">
+      <div v-if="local.indexOf('www.gigogvt')>-1||local.indexOf('localhost:8082')>-1">
+        <img src="./assets/bannercaixa.png" alt="">
+      </div>
+      <div v-else>
+        <img src="./assets/banner.png" alt="">
+      </div>
     </div>
   </div>
 </template>
@@ -48,6 +53,11 @@ export default {
       container.scrollTop = container.scrollHeight;
     }, 1500);
   },
+  computed:{
+    local(){
+      return this.$local
+    }
+  }
 
 }
 </script>
@@ -95,7 +105,7 @@ body{
 }
 .banner{
   grid-area: banner;
-  background-color: #6c757d;
+  background-color: #4472C4;
   margin:5% ;
   margin-right: 0;
   border-radius: 5px;
@@ -104,7 +114,7 @@ body{
   justify-content: center;
 }
 .banner img{
-  width: 100%;
+  width: 90%;
   height: auto;
 }
 .rodape{

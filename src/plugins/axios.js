@@ -9,5 +9,6 @@ if (local=='www.gigovvt.des.es.caixa') axios.defaults.baseURL='http://www.gigovv
 Vue.use({
   install(Vue){
     Vue.prototype.$http = axios
+    Vue.prototype.$local = local
   }
 })

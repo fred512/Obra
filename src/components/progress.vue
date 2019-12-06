@@ -23,14 +23,14 @@ export default {
     background-color: #795548 !important;
   }
   .progresscard{
-    width: 90% !important;
+    width: 70% !important;
     margin-top: 0;
     height: 3.5rem;
-    position: relative;
+    position: fixed;
     border-radius: 4px;
     z-index: 1;
     top: 40vh;
-    left: 2%;
+    left: 10%;
     background-color: #795548;
   }
 </style>
