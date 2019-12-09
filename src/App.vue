@@ -2,10 +2,52 @@
   <div id="app">
     <div class="cabecalho">
       <img alt="PDO logo" src="./assets/logo-pdo-azul.png">
-      <div class="botoes">
+      <div class="canto">
+        <div class="botaodoacao" bg-variant="warning" >
+          <span>
+          Ajude a manter o site atualizado e funcionando doando um valor clicando no botão.
+          </span>
+          <b-button text-danger v-b-modal.modal-multi-1 class="mt-3" size="sm" pill variant="warning" >Doe</b-button>
+
+
+        </div>
+        <img alt="PDO logo" src="./assets/pdo-logo.png">
       </div>
-      <img alt="PDO logo" src="./assets/pdo-logo.png">
     </div>
+    <b-modal id="modal-multi-1" size="lg" body-bg-variant="info" footer-bg-variant="info" header-bg-variant="info" 
+      title="Escolha uma das opções de doação abaixo" body-text-variant="light" header-text-variant="light"
+       centered modal-ok>
+      <div class="doacao">
+        <div class="paypal">
+          <h3>Paypal</h3>
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick" />
+            <input type="hidden" name="hosted_button_id" value="R2WRWGCUQNSBL" />
+            <input type="image" src="https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Faça doações com o botão do PayPal" />
+            <img alt="" border="0" src="https://www.paypal.com/pt_BR/i/scr/pixel.gif" width="1" height="1" />
+          </form>
+        </div>
+        <div class="pagseguro">
+          <h3>PagSeguro</h3>
+          <form action="https://pagseguro.uol.com.br/checkout/v2/donation.html" method="post">
+            <input type="hidden" name="currency" value="BRL" />
+            <input type="hidden" name="receiverEmail" value="carlosfredericodemborges@gmail.com" />
+            <input type="hidden" name="iot" value="button" />
+            <input type="image" src="https://stc.pagseguro.uol.com.br/public/img/botoes/doacoes/120x53-doar-azul.gif" name="submit" alt="Pague com PagSeguro - é rápido, grátis e seguro!" />
+          </form>
+        </div>
+        <div class="picpay">
+          <h3>PicPay</h3>
+          <img src="./assets/picpay.png" alt="" v-b-modal.modal-multi-2>
+        </div>
+      </div>
+    </b-modal>
+
+    <b-modal id="modal-multi-2" title="Doar com PicPay" ok-only centered>
+      <div class="qr-picpay">
+        <img src="./assets/pcipay-fred.png" alt="">
+      </div>
+    </b-modal>
     <div class="conteudo">
       <div class="params">
         <keep-alive>
@@ -34,6 +76,7 @@
       </div>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -70,9 +113,73 @@ body{
   padding: 0;
   max-width: 100vw;
 }
-
-.botoes > img{
-  max-width: 50px;
+.canto{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.doacao{
+  display: flex;
+  justify-content: space-between;
+}
+.doacao div{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  width: 30%;
+  height: 140px;
+  border: 1px solid rgba(222, 226, 230,.6);
+}
+@-webkit-keyframes blinker {
+  from {opacity: 1.0;}
+  to {opacity: 0.5;}
+}
+.picpay img{
+  width: 50px;
+}
+.qr-picpay img{
+  border: 1px solid #111;
+}
+.qr-picpay{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.botaodoacao  {
+	text-decoration: blink;
+	-webkit-animation-name: blinker;
+	-webkit-animation-duration: 1.3s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-timing-function:ease-in-out;
+	-webkit-animation-direction: alternate;
+  display: flex;
+  font-weight: 600;
+  justify-content: space-between;
+  align-items: center;
+  width:450px;
+  margin-right: 15px;
+  -webkit-box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
+  -moz-box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
+  box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
+  box-sizing: border-box;
+  padding: 3px;
+  border-radius: 8px;
+  color:#dc3545 !important;
+  background-color: rgba(255,245,157,0.8);
+}
+.botaodoacao button{
+  margin-right: 3px;
+  margin-top: -5px !important;
+  font-weight: bold;
+  color:#dc3545;
+  padding: 3px 15px;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -162,10 +269,10 @@ body{
   grid-area: conteudo;
   background-image: url('./assets/logo4-8.png');
 }
-#app > div.cabecalho > img:nth-child(3){
-  max-width: 48px;
-  max-height: 48px;
-  margin-right: 15px;
+#app > div.cabecalho > div > img{
+  max-width: 60px;
+  max-height: 60px;
+  margin-right: 10px;
 }
 #app > div.cabecalho > img{
   max-width: 190px;
