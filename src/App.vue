@@ -71,7 +71,9 @@
         <img src="./assets/riscocaixa.png" alt="">
       </div>
       <div v-else>
-        <img src="./assets/banner.png" alt="">
+        <img src="./assets/banner1.jpeg" alt="">
+        <img src="./assets/banner2.jpeg" alt="">
+        <img src="./assets/banner3.jpeg" alt="">
       </div>
     </div>
   </div>
@@ -110,7 +112,7 @@ export default {
 body{
   margin: 0;
   padding: 0;
-  max-width: 100vw;
+  width: 100vw;
 }
 .canto{
   display: flex;
@@ -166,8 +168,7 @@ body{
   -moz-box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
   box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
   box-sizing: border-box;
-  padding: 3px;
-  padding-left: 5px;
+  padding: 5px;
   border-radius: 8px;
   color:#dc3545 !important;
   background-color: rgba(255,245,157,0.8);

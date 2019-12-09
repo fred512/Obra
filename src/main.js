@@ -8,9 +8,16 @@ import store from './store/store'
 import './plugins/axios'
 import AsyncComputed from 'vue-async-computed'
 import { EmbedPlugin } from 'bootstrap-vue'
+import VueMq from 'vue-mq'
 
-window.axios = require('axios');
-
+Vue.use(VueMq, {
+  breakpoints: { // default breakpoints - customize this
+    sm: 1024,
+    md: 1250,
+    lg: Infinity,
+  },
+  defaultBreakpoint: 'sm' // customize this for SSR
+})
 Vue.use(EmbedPlugin)
 Vue.use(AsyncComputed)
 Vue.use(BootstrapVue)
