@@ -2,15 +2,15 @@
 <div class="conteudoGrid" :class="{'zoom':zoom}">
   <div class="table">
     <div class="tr header" @dblclick="zoom=!zoom">
-      <div class="td header" style="width:9%" >Item</div>
-      <div class="td header" style="width:9%">Orgão</div>
-      <div class="td header" style="width:9%">Código</div>
-      <div class="td header" style="width:30%">Descrição</div>
-      <div class="td header" style="width:5%">Unid</div>
-      <div class="td header" style="width:9%">Qtde&nbsp;</div>
-      <div class="td header" style="width:9%">Valor Unit</div>
-      <div class="td header" style="width:9%">Valor Total</div>
-      <div class="td header" style="width:10%">
+      <div class="td header" style="width:9% !important" >Item</div>
+      <div class="td header" style="width:9% !important">Orgão</div>
+      <div class="td header" style="width:9% !important">Código</div>
+      <div class="td header" style="width:30% !important">Descrição</div>
+      <div class="td header" style="width:5% !important">Unid</div>
+      <div class="td header" style="width:9% !important">Qtde&nbsp;</div>
+      <div class="td header" style="width:9% !important">Valor Unit</div>
+      <div class="td header" style="width:9% !important">Valor Total</div>
+      <div class="td header" style="width:10% !important">
         <div class="acao">
           <i class="fa fa-times-circle-o text-danger fa-1x" 
             @click="mostraalerta=false;mostraerro=!mostraerro;"

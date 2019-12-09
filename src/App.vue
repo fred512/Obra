@@ -3,13 +3,12 @@
     <div class="cabecalho">
       <img alt="PDO logo" src="./assets/logo-pdo-azul.png">
       <div class="canto">
-        <div class="botaodoacao" bg-variant="warning" >
+        <div class="botaodoacao" bg-variant="warning" 
+            v-if="local.indexOf('www.gigovvt')==-1&&local.indexOf('localhost:8082')==-1">
           <span>
           Ajude a manter o site atualizado e funcionando doando um valor clicando no botão.
           </span>
           <b-button text-danger v-b-modal.modal-multi-1 class="mt-3" size="sm" pill variant="warning" >Doe</b-button>
-
-
         </div>
         <img alt="PDO logo" src="./assets/pdo-logo.png">
       </div>
@@ -153,33 +152,42 @@ body{
   justify-content: center;
 }
 .botaodoacao  {
+  display: flex;
+  font-weight: 600;
+  font-size:13px;
+  text-align: left;
+  justify-content: space-between;
+  align-items: center;
+  width:375px;
+  margin-right: 18px;
+  line-height: 15px;
+  max-height: 70px;
+  -webkit-box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
+  -moz-box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
+  box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
+  box-sizing: border-box;
+  padding: 3px;
+  padding-left: 5px;
+  border-radius: 8px;
+  color:#dc3545 !important;
+  background-color: rgba(255,245,157,0.8);
+}
+.botaodoacao button{
 	text-decoration: blink;
 	-webkit-animation-name: blinker;
 	-webkit-animation-duration: 1.3s;
 	-webkit-animation-iteration-count:infinite;
 	-webkit-animation-timing-function:ease-in-out;
 	-webkit-animation-direction: alternate;
-  display: flex;
-  font-weight: 600;
-  justify-content: space-between;
-  align-items: center;
-  width:450px;
-  margin-right: 15px;
   -webkit-box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
   -moz-box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
   box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
   box-sizing: border-box;
-  padding: 3px;
-  border-radius: 8px;
-  color:#dc3545 !important;
-  background-color: rgba(255,245,157,0.8);
-}
-.botaodoacao button{
-  margin-right: 3px;
-  margin-top: -5px !important;
+  margin: 3px;
+  margin-top: 3px !important;
   font-weight: bold;
   color:#dc3545;
-  padding: 3px 15px;
+  padding: 1px 15px;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
