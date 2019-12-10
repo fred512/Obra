@@ -8,7 +8,7 @@
           <span>
           Ajude a manter o site atualizado e funcionando doando um valor clicando no botão.
           </span>
-          <b-button text-danger v-b-modal.modal-multi-1 class="mt-3" size="sm" pill variant="warning" >Doe</b-button>
+          <b-button text-danger v-b-modal.modal-multi-1 class="mt-3" size="sm" pill variant="warning" >Doar</b-button>
         </div>
         <img alt="PDO logo" src="./assets/pdo-logo.png">
       </div>
@@ -71,7 +71,9 @@
         <img src="./assets/riscocaixa.png" alt="">
       </div>
       <div v-else>
-        <img src="./assets/banner.png" alt="">
+        <img src="./assets/banner1.jpg" alt="">
+        <img src="./assets/banner2.jpg" alt="">
+        <img src="./assets/banner3.jpg" alt="">
       </div>
     </div>
   </div>
@@ -158,7 +160,7 @@ body{
   text-align: left;
   justify-content: space-between;
   align-items: center;
-  width:375px;
+  width:380px;
   margin-right: 18px;
   line-height: 15px;
   max-height: 70px;
@@ -232,6 +234,12 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.banner div{
+  height: 90%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;  
 }
 .banner img{
   width: 90%;
