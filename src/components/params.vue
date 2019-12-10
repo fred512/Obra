@@ -14,7 +14,7 @@
             <b-form-select v-model="params.base" :options="registros" @change="saveParams()"></b-form-select>
         </div>
         <div class="field">
-          <b-form-checkbox size="lg" switch 
+          <b-form-checkbox switch 
             variant="danger" @change.native="saveParams()"
             v-model="params.desonerado"
             value="1"
@@ -486,7 +486,7 @@ export default {
     }
     .acoesParams,.campos{
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
       color:#4472C4;
       border: 1px solid #4472C4;
@@ -561,17 +561,15 @@ export default {
       border: 1px solid #4472c4;
       border-radius: 3px;
     }
-    .field{
-        color:#4472C4;
-        margin-left: 20px;
-        font-weight: 600;
-        white-space: nowrap;
-    }
-    .field:nth-child(1) input{
+    .campos .field:nth-child(1) input{
       width: 40px;
     }
-    .field:nth-child(3) input{
-      width: 150px;
+    .campos .field:nth-child(4) {
+      width: 160px;
+      flex:1;
+    }
+    .campos .field:nth-child(3) select{
+      max-width: 9vw !important;
     }
     .field select{
       padding:0px;
@@ -590,14 +588,10 @@ export default {
       border-radius: 3px;
     }
     .field{
-        color:#4472C4;
-        margin-left: 20px;
-        font-weight: 600;
-        white-space: nowrap;
-    }
-    .campos > div{
-      flex:1 1 auto;
-      margin: 5px;
+      color:#4472C4;
+      margin-left: 15px;
+      font-weight: 600;
+      white-space: nowrap;
     }
     .campos > div > i,
     .acoesParams > div{

@@ -1,6 +1,5 @@
 <template>
 <div>
-
     <div class="tr" v-for="(item,i) in itens" :key="i" @keyup.esc="saiSemGravar(item)" 
         :class="{'composicao':item.composicao,'erro':item.erro.length,'LinhaPar':i%2==0,
         'Selected':item.selecionado,'alerta':item.alerta.length,

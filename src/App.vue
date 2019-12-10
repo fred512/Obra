@@ -112,7 +112,7 @@ export default {
 body{
   margin: 0;
   padding: 0;
-  max-width: 100vw;
+  width: 100vw;
 }
 .canto{
   display: flex;
@@ -168,8 +168,7 @@ body{
   -moz-box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
   box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
   box-sizing: border-box;
-  padding: 3px;
-  padding-left: 5px;
+  padding: 5px;
   border-radius: 8px;
   color:#dc3545 !important;
   background-color: rgba(255,245,157,0.8);
@@ -226,23 +225,26 @@ body{
   grid-area: banner;
   background-color: #4472C4;
   margin:5% ;
+  border-radius: 5px;
+}
+.banner div{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   margin-right: 0;
-  border-radius: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height:calc(100%) !important;
 }
-.banner div{
+.banner {
   height: 90%;
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;  
 }
-.banner img{
+.banner > div > img{
   width: 90%;
+  flex:1;
   height: auto;
   margin: 1vh auto;
   border-radius: 5px;
