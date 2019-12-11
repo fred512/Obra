@@ -222,12 +222,6 @@ body{
   overflow: auto;
   position: relative;
 }
-.banner{
-  grid-area: banner;
-  background-color: #4472C4;
-  margin:5% ;
-  border-radius: 5px;
-}
 .banner div{
   display: flex;
   flex-direction: column;
@@ -238,7 +232,11 @@ body{
   height:calc(100%) !important;
 }
 .banner {
-  height: 90%;
+  grid-area: banner;
+  background-color: #4472C4;
+  margin: 6px 3px;
+  border-radius: 5px;
+  height: 98%;
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;  

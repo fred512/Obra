@@ -23,8 +23,10 @@
           </b-form-checkbox>
         </div>
         <div title="Totaliza Planilha">
+          <i class="fa fa-bar-chart fa-2x" @click="curvaABC()"></i>
+        </div>
+        <div title="Totaliza Planilha">
           <i class="fa fa-calculator fa-2x" @click="totalizaItens()"></i>
-          <!-- <i class="fa fa-archive fa-2x" @click="saveParams()"></i> -->
         </div>
     </div>
     <div class="acoesParams">
@@ -120,6 +122,14 @@
         <b-button class="mt-3" block variant="warning" @click="readSheet()">Carregar</b-button>
       </div>
     </b-modal>
+    <b-modal id="modal-ABC" size="xl" scrollable hide-footer centered title="Curva ABC" 
+     class="modalABC" bg-variant="info">
+      <div class="d-block" style="text-align: center !important;">
+        <b-table striped responsive head-variant="info"
+          table-variant="success" :fields="fields" 
+          small="true" :items="arrayABC"></b-table>
+      </div>
+    </b-modal>
     <b-modal id="modal_atualiza" centered content-class="shadow" 
       header-bg-variant="light"
       header-text-variant="info"
@@ -158,7 +168,21 @@ export default {
           "desonerado":'1',
           "BDI":''
         },
+        fields: [
+          { key: 'Seq', sortable: false },
+          { key: 'Item', sortable: true },
+          { key: 'Orgao', sortable: false },
+          { key: 'Codigo', sortable: false },
+          { key: 'Descricao', sortable: false },
+          { key: 'Unid', sortable: false },
+          { key: 'Qtd', sortable: false },
+          { key: 'Vl_Unit', sortable: true },
+          { key: 'Vl_Total', sortable: true },
+          { key: 'Perc', sortable: true ,text:"%"},
+          { key: 'Acumulado', sortable: true },
+        ],
         atualiza:'',
+        arrayABC:[],
         linha1:7, 
         coluna1:'A',
         lendo:false,
@@ -369,20 +393,56 @@ export default {
         this.toast('Informe Data Base e/ou BDI e/ou Nome da Guia','danger')
         return
       }
-      //async function fixdata(data) {
-      //   var o = "", l = 0, w = 10240;
-      //   for(; l<data.byteLength/w; ++l) o+=String.fromCharCode.apply(null,new Uint8Array(data.slice(l*w,l*w+w)));
-      //   o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
-      //   return o;
-      // }
-
-      // var fixedData = await fixdata(this.data)
-      // var workbook=XLSX.read(btoa(fixedData), {type: 'base64'})
       var worksheet = this.workbook.Sheets[this.guia]
       var results=XLSX.utils.sheet_to_json(worksheet,{defval:""})
       this.salvaItens(results)
       this.$bvModal.hide('modal-2')
     },
+    curvaABC(){
+      if (this.itens.length<1) return
+      var itens=this.itens
+      var arrayABC=[],arrayItens=[],total=parseFloat(this.$store.state.totvalor)
+      this.itens.forEach(function(item,i){
+        if (item.codigo!==''&&item.valortot>0){
+          if (JSON.stringify(arrayItens.indexOf('"codigo":"'+item.codigo+'"'))<0){
+            var temp=itens.filter(function(el){
+              return el.codigo==item.codigo
+            })
+            var totItem=temp.reduce(function(tot,el){
+              return tot+=parseFloat(el.valortot)
+            },0)
+            var perc=(totItem*100/total).toFixed(2)
+            var itemABC={
+              'Seq':'',
+              'Item':item.item,
+              'Orgao':item.orgao,
+              'Codigo':item.codigo,
+              'Descricao':item.descr,
+              'Unid':item.unid,
+              'Qtd':item.qtd,
+              'Vl_Unit':item.vlComBDI,
+              'Vl_Total':totItem,
+              'Perc':perc
+            }
+            arrayItens.push(itemABC)
+          }
+        }
+      })
+      var arrayItens=arrayItens.sort(function(a,b){
+        if (a.Vl_Total> b.Vl_Total) return -1
+        if (a.Vl_Total< b.Vl_Total) return 1
+      })
+      var acum=0,seq=1
+      arrayABC=arrayItens.map(function(el){
+        el.Seq=seq++
+        acum+=parseFloat(el.Perc)
+        el.Acumulado=acum.toFixed(2)
+        return el
+      })
+      this.arrayABC=arrayABC
+      this.$bvModal.show('modal-ABC')
+    },
+
     onexport () { // On Click Excel download button
       var itens=[]
       this.itens.forEach(function(v){
@@ -392,7 +452,7 @@ export default {
           'Código':v.codigo,
           'Descrição':v.descr,
           'Unid':v.unid,
-          'Qtdade':v.qtd,
+          'Qtd':v.qtd,
           'Preço Unitário':v.vlComBDI,
           'Preço Total':v.valortot
           // 'Preço Total':v.vlComBDI!==''&&v.qtd!==''?v.qtd*v.vlComBDI:''
@@ -505,7 +565,6 @@ export default {
     .conteudoParams{
       display: flex;
       justify-content: space-between; 
-      max-height: 65px;     
     }
     #modal-2 > .field input[type="checkbox"]{
       transform: scale(1.2) !important
@@ -612,5 +671,15 @@ export default {
     .titulo{
       font-size: 1.8rem;
       color:#4472C4;
+    }
+    .table.b-table > thead > tr > th{
+      background-color: #2e7d32 !important;
+      color: #fff;
+    }
+    .table.b-table{
+      width: fit-content !important;
+    }
+    .modal.show .modal-dialog {
+      min-width: 90% !important;
     }
 </style>

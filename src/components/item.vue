@@ -2,7 +2,7 @@
 <div class="conteudoGrid" :class="{'zoom':zoom}">
   <div class="table">
     <div class="tr header" @dblclick="zoom=!zoom">
-      <div class="td header" style="width:9% !important" >Item</div>
+      <div class="td header" style="width:9% !important">Item</div>
       <div class="td header" style="width:9% !important">Orgão</div>
       <div class="td header" style="width:9% !important">Código</div>
       <div class="td header" style="width:30% !important">Descrição</div>
@@ -438,22 +438,8 @@ export default {
         document.querySelector('#app > div.conteudo > div.grid').scrollTop=elem.offsetTop-200
       }, 200);
     },
+
   },
-  // updated(){
-  //   if (this.add) {
-  //     this.add=false
-  //     var linha=this.selecionado
-  //     this.$refs["itm-" + (linha)][0].focus()
-  //     this.$refs["tr-" + (linha)][0].scrollIntoView()
-  //   }
-  //   var pai=document.querySelector('.conteudoGrid').clientHeight
-  //   pai=pai+document.querySelector('conteudoGrid').getBoundingClientRect().y
-  //   var filho=document.querySelector('#linha'+this.selecionado).getBoundingClientRect().y
-  //   if (filho>(pai-100)){
-  //   // if ((this.itens.length-this.selecionado)<3&&this.itens.length>4){
-  //     this.emcima=true
-  //     this.jafoi=false
-  //   }
   
   created(){
     setTimeout(() => {
