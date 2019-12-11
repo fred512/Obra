@@ -196,7 +196,7 @@ body{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   display: grid;
-  max-width: calc(98vw);
+  max-width: calc(99vw);
   grid-template-rows: 10vh 79vh 10vh;
   grid-template-columns: 1fr 100px;
   grid-template-areas: 
@@ -208,6 +208,7 @@ body{
   background-size: cover;
   background-color: #eceff1 ;
   overflow: hidden;
+  margin: 0 auto;
 }
 .grid{
   /* border:1px solid #4472C4; */
@@ -271,7 +272,6 @@ body{
 .cabecalho{
   grid-area: cabecalho;
   width: 100%;
-  max-width: 98vw;
   max-height:70px;
   display: flex;
   justify-content: space-between;

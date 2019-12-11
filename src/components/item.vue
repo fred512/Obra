@@ -207,6 +207,16 @@ export default {
       })
       this.selecionado=item.id
       item.edita=true
+      var self=this
+      setTimeout(function() {
+        var pai=document.querySelector('.conteudoGrid').clientHeight
+        pai=pai+document.querySelector('.conteudoGrid').getBoundingClientRect().y
+        var elem=document.querySelector('#linha'+item.id)
+        var filho=elem.getBoundingClientRect().y
+        if (filho>(pai-100)) self.emcima=true
+        // linha abaixo para centralizar a linha verticalmente
+        // document.querySelector('#app > div.conteudo > div.grid').scrollTop=elem.offsetTop-200
+      }, 300,item);
     },
     chamaItens(){
       this.$bvModal.show('modal-itens')
@@ -429,18 +439,22 @@ export default {
       }, 200);
     },
   },
-  updated(){
-    if (this.add) {
-      this.add=false
-      var linha=this.selecionado
-      this.$refs["itm-" + (linha)][0].focus()
-      this.$refs["tr-" + (linha)][0].scrollIntoView()
-    }  
-    if ((this.itens.length-this.selecionado)<4&&this.itens.length>5){
-      this.emcima=true
-      this.jafoi=false
-    }
-  },
+  // updated(){
+  //   if (this.add) {
+  //     this.add=false
+  //     var linha=this.selecionado
+  //     this.$refs["itm-" + (linha)][0].focus()
+  //     this.$refs["tr-" + (linha)][0].scrollIntoView()
+  //   }
+  //   var pai=document.querySelector('.conteudoGrid').clientHeight
+  //   pai=pai+document.querySelector('conteudoGrid').getBoundingClientRect().y
+  //   var filho=document.querySelector('#linha'+this.selecionado).getBoundingClientRect().y
+  //   if (filho>(pai-100)){
+  //   // if ((this.itens.length-this.selecionado)<3&&this.itens.length>4){
+  //     this.emcima=true
+  //     this.jafoi=false
+  //   }
+  
   created(){
     setTimeout(() => {
       this.selecionado=0
