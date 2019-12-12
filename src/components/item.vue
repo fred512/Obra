@@ -53,7 +53,7 @@
         <div class="descricao">
           <b-form-textarea v-model="item.descr" style="text-align:left" :class="{'editavel':item.edita}"
             @input="pesquisa($event)" tabindex="0" :disabled="!item.edita"
-            rows="1" max-rows="6"></b-form-textarea>
+            rows="1" max-rows="6" title="Selecione um Órgão para pesquisar itens"></b-form-textarea>
           <ul class="autocomplete" ref="auto"
               v-if="Object.keys(ItensPesquisados).length" :class="{'emcima':emcima,'autocompleteAtivo':item.edita}">
             <li v-for="(ItemPesquisado,i) in ItensPesquisados" :key="i" 
