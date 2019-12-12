@@ -24,7 +24,7 @@
         </div>
         <div class="field">
           <div title="Totaliza Planilha">
-            <i class="fa fa-bar-chart fa-2x" @click="curvaABC()"></i>
+            <i class="fa fa-bar-chart fa-2x" @click="curvaABC()" data-target="#modal-ABC"></i>
           </div>
           <div title="Totaliza Planilha">
             <i class="fa fa-calculator fa-2x" @click="totalizaItens()"></i>
@@ -125,11 +125,11 @@
       </div>
     </b-modal>
     <b-modal id="modal-ABC" size="xl" scrollable hide-footer centered title="Curva ABC" 
-     class="modalABC" bg-variant="info">
+     class="modalABC" @hide="closeABC">
       <div class="d-block" style="text-align: center !important;">
         <b-table striped responsive head-variant="info"
-          table-variant="success" :fields="fields" 
-          small="true" :items="arrayABC"></b-table>
+          table-variant="success" :fields="fields" sticky-header
+          :small=small :items="arrayABC"></b-table>
       </div>
     </b-modal>
     <b-modal id="modal_atualiza" centered content-class="shadow" 
@@ -171,18 +171,19 @@ export default {
           "BDI":''
         },
         fields: [
-          { key: 'Seq', sortable: false },
+          { key: 'Seq', sortable: false},
           { key: 'Item', sortable: true },
-          { key: 'Orgao', sortable: false },
-          { key: 'Codigo', sortable: false },
-          { key: 'Descricao', sortable: false },
+          { key: 'Orgao', sortable: false,label:"Órgão" },
+          { key: 'Codigo', sortable: false,label:"Código" },
+          { key: 'Descricao', sortable: false,label:"Descrição" },
           { key: 'Unid', sortable: false },
           { key: 'Qtd', sortable: false },
-          { key: 'Vl_Unit', sortable: true },
-          { key: 'Vl_Total', sortable: true },
-          { key: 'Perc', sortable: true ,text:"%"},
-          { key: 'Acumulado', sortable: true },
+          { key: 'Vl_Unit', sortable: true,label:"Preço Unit" },
+          { key: 'Vl_Total', sortable: true,label:"Preço Total" },
+          { key: 'Perc', sortable: true ,label:"%"},
+          { key: 'Acumulado', sortable: true,label:"%Acum" },
         ],
+        small:true,
         atualiza:'',
         arrayABC:[],
         linha1:7, 
@@ -413,7 +414,10 @@ export default {
             var totItem=temp.reduce(function(tot,el){
               return tot+=parseFloat(el.valortot)
             },0)
-            var perc=(totItem*100/total).toFixed(2)
+            var totqtd=temp.reduce(function(tot,el){
+              return tot+=parseFloat(el.qtd)
+            },0)
+            var perc=(totItem.toFixed(2)*100/total).toFixed(2)
             var itemABC={
               'Seq':'',
               'Item':item.item,
@@ -421,10 +425,10 @@ export default {
               'Codigo':item.codigo,
               'Descricao':item.descr,
               'Unid':item.unid,
-              'Qtd':item.qtd,
+              'Qtd':item.totqtd,
               'Vl_Unit':item.vlComBDI,
               'Vl_Total':totItem,
-              'Perc':perc
+              'Perc':perc,
             }
             arrayItens.push(itemABC)
           }
@@ -438,10 +442,17 @@ export default {
       arrayABC=arrayItens.map(function(el){
         el.Seq=seq++
         acum+=parseFloat(el.Perc)
-        el.Acumulado=acum.toFixed(2)
+        var vari=''
+        if (acum<81) vari="danger"
+        el._rowVariant=vari
+        el.Acumulado=acum.toFixed(0)
         return el
       })
+      arrayABC=arrayABC.filter(function(el){
+        return el.Acumulado<100
+      })
       this.arrayABC=arrayABC
+      this.$bvModal.hide('modal-ABC')
       this.$bvModal.show('modal-ABC')
     },
 
@@ -494,6 +505,9 @@ export default {
       setTimeout(() => {
         this.$store.commit('calculatotal')
       }, 1000,this);
+    },
+    closeABC(){
+      this.$bvModal.hide('modal-ABC')
     }
   },
   beforeMount(){
@@ -629,14 +643,13 @@ export default {
     .campos .field:nth-child(1) input{
       width: 40px;
     }
-    .campos .field:nth-child(4) {
-      /* width: 160px; */
-      flex:1;
+    .campos .field select{
+      padding-top: 0px !important;
+      padding-left: 4px;
+      padding-right: 10px;
+      padding-bottom: 0 !important;
+      min-width: calc(8vw) !important;
     }
-    .campos .field:nth-child(3) select{
-      /* max-width: 9vw !important; */
-    }
-
     .field{
       color:#4472C4;
       margin-left: 15px;
@@ -672,7 +685,13 @@ export default {
     .table.b-table{
       width: fit-content !important;
     }
-    .modal.show .modal-dialog {
+    #modal-ABC.modal.show .modal-dialog {
       min-width: 90% !important;
+    }
+    #modal-ABC.modal.show .modal-dialog > div.modal-content {
+      height: 80vh !important;
+    }
+    #modal-ABC.modal.show .modal-dialog > div.modal-content > .div.modal-body {
+      height: calc(100%) !important;
     }
 </style>

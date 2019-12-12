@@ -750,7 +750,7 @@ export default {
   .alerta input,
   .alerta textarea,
   .alerta{
-    color: #ffc107!important;
+    color: #ffc107 !important;
     font-weight: 700;
   }
   .erro,
@@ -791,13 +791,13 @@ export default {
   .table .tr:hover{
     /* color: #43a047  !important; */
     /* background-color: rgba(187, 222, 251, 0.4) !important; */
-    background-color: rgba(0,0,0,.3) !important;
+    background-color: rgba(0,0,0,.1) !important;
     -webkit-box-shadow: inset 0px 0px 4px 4px rgba(0,0,0,.21);
     -moz-box-shadow: inset 0px 0px 4px 4px rgba(0,0,0,.21);
     box-shadow: inset 0px 0px 4px 4px rgba(0,0,0,.21);
   }
   .zoom{
-    transform: scale(0.5);
+    transform: scale(0.8);
   }
   .filtrado{
     border-bottom: 3px solid #fff;
