@@ -23,8 +23,8 @@
           </b-form-checkbox>
         </div>
         <div class="field">
-          <div title="Totaliza Planilha">
-            <i class="fa fa-bar-chart fa-2x" @click="curvaABC()" data-target="#modal-ABC"></i>
+          <div title="Curva ABC">
+            <i class="fa fa-bar-chart fa-2x" @click.native="curvaABC()" data-target="#modal-ABC"></i>
           </div>
           <div title="Totaliza Planilha">
             <i class="fa fa-calculator fa-2x" @click="totalizaItens()"></i>
@@ -125,12 +125,10 @@
       </div>
     </b-modal>
     <b-modal id="modal-ABC" size="xl" scrollable hide-footer centered title="Curva ABC" 
-     class="modalABC" @hide="closeABC">
-      <div class="d-block" style="text-align: center !important;">
-        <b-table striped responsive head-variant="info"
-          table-variant="success" :fields="fields" sticky-header
+     class="modalABC" @hide="closeABC" header-bg-variant="info" body-bg-variant="info">
+        <b-table striped header-variant="info"
+          table-variant="success" :fields="fields" 
           :small=small :items="arrayABC"></b-table>
-      </div>
     </b-modal>
     <b-modal id="modal_atualiza" centered content-class="shadow" 
       header-bg-variant="light"
@@ -407,7 +405,7 @@ export default {
       var arrayABC=[],arrayItens=[],total=parseFloat(this.$store.state.totvalor)
       this.itens.forEach(function(item,i){
         if (item.codigo!==''&&item.valortot>0){
-          if (JSON.stringify(arrayItens.indexOf('"codigo":"'+item.codigo+'"'))<0){
+          if (JSON.stringify(arrayItens).indexOf('"Codigo":"'+item.codigo+'"')<0){
             var temp=itens.filter(function(el){
               return el.codigo==item.codigo
             })
@@ -425,7 +423,7 @@ export default {
               'Codigo':item.codigo,
               'Descricao':item.descr,
               'Unid':item.unid,
-              'Qtd':item.totqtd,
+              'Qtd':totqtd,
               'Vl_Unit':item.vlComBDI,
               'Vl_Total':totItem,
               'Perc':perc,
@@ -507,6 +505,7 @@ export default {
       }, 1000,this);
     },
     closeABC(){
+      this.arrayABC=[]
       this.$bvModal.hide('modal-ABC')
     }
   },
@@ -684,14 +683,5 @@ export default {
     }
     .table.b-table{
       width: fit-content !important;
-    }
-    #modal-ABC.modal.show .modal-dialog {
-      min-width: 90% !important;
-    }
-    #modal-ABC.modal.show .modal-dialog > div.modal-content {
-      height: 80vh !important;
-    }
-    #modal-ABC.modal.show .modal-dialog > div.modal-content > .div.modal-body {
-      height: calc(100%) !important;
     }
 </style>

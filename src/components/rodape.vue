@@ -1,5 +1,8 @@
 <template>
   <div class="resumo">
+    <div class="contato text-info">
+      <i class="fa fa-envelope fa-2x"></i> &nbsp;{{contato}}
+    </div>
     <div class="tutoriais">
       <i class="fa fa-search" @click="showIframe"></i>
       Pesquisa Itens
@@ -13,7 +16,7 @@
       </span>
     </div>
     <div class="iframe" v-if="iframeWeb">
-      <span>Clique no ícone 'Pesquisa Itens' para sair</span>
+      <span>Clique no ícone <i class="fa fa-search"></i>' Pesquisa Itens' para sair</span>
       <b-embed
           type="iframe"
           aspect="21by9"
@@ -22,7 +25,7 @@
         ></b-embed>
     </div>
     <div class="iframe" v-if="iframeIntranet">
-      <span>Clique no ícone 'Pesquisa Itens' para sair</span>
+      <span>Clique no ícone <i class="fa fa-search"></i>' Pesquisa Itens' para sair</span>
       <b-embed
         type="iframe"
         aspect="21by9"
@@ -74,6 +77,9 @@ export default {
         return el.codigo!==''&&el.orgao!==''?el:''
       })
     },
+    contato(){
+      return this.$local.indexOf('www.gigovvt')>-1 ? "carlos.m.borges@caixa.gov.br": "contato@planilhadeobra.site"
+    }
   },
 }
 </script>
@@ -106,7 +112,7 @@ export default {
   .tutoriais i{
     padding: 0;
     margin-bottom: -5px;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin-bottom: 2px;
   }
   .atualiza{
@@ -132,6 +138,12 @@ export default {
     font-size: 30px;
     font-weight: bold;
     background-color: #ffff00;
+  }
+  .contato{
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
   }
 
 </style>
