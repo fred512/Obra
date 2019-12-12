@@ -2,15 +2,15 @@
   <div class="conteudoParams">
     <div class="campos">
         <div class="field" title="Seleciona UF">
-            UF: 
+            UF:&nbsp;
             <input type="text" v-model.lazy="params.UF" @change="saveParams()">
         </div>
         <div class="field" title="Define BDI">
-            BDI: 
+            BDI:&nbsp;
             <input type="number" step="0.01" min="0" max="80" v-model.lazy="params.BDI" @change="saveParams()">
         </div>
         <div class="field" style="position:relative" title="Seleciona Data Base Disponível">
-            Data Base:
+            Data Base:&nbsp;
             <b-form-select v-model="params.base" :options="registros" @change="saveParams()"></b-form-select>
         </div>
         <div class="field">
@@ -22,11 +22,13 @@
           >Desonerado
           </b-form-checkbox>
         </div>
-        <div title="Totaliza Planilha">
-          <i class="fa fa-bar-chart fa-2x" @click="curvaABC()"></i>
-        </div>
-        <div title="Totaliza Planilha">
-          <i class="fa fa-calculator fa-2x" @click="totalizaItens()"></i>
+        <div class="field">
+          <div title="Totaliza Planilha">
+            <i class="fa fa-bar-chart fa-2x" @click="curvaABC()"></i>
+          </div>
+          <div title="Totaliza Planilha">
+            <i class="fa fa-calculator fa-2x" @click="totalizaItens()"></i>
+          </div>
         </div>
     </div>
     <div class="acoesParams">
@@ -561,6 +563,9 @@ export default {
     .campos{
       flex-grow: 1;
       margin-right: 10px;
+      flex-wrap: wrap;
+      display: flex;
+      justify-content: space-around;
     }
     .conteudoParams{
       display: flex;
@@ -615,6 +620,7 @@ export default {
       max-width: 100px ;
       text-transform: uppercase;
       text-align: center;
+      margin-right: 35px;
       color: #4472C4;
       max-height: 35px;
       border: 1px solid #4472c4;
@@ -624,35 +630,22 @@ export default {
       width: 40px;
     }
     .campos .field:nth-child(4) {
-      width: 160px;
+      /* width: 160px; */
       flex:1;
     }
     .campos .field:nth-child(3) select{
-      max-width: 9vw !important;
+      /* max-width: 9vw !important; */
     }
-    .field select{
-      padding:0px;
-      padding-left: 5px;
-      max-width: 115px !important;
-    }
-    .field input,
-    .field select{
-      font-size: 1.2rem;
-      max-width: 100px ;
-      text-transform: uppercase;
-      text-align: center;
-      color: #4472C4;
-      max-height: 35px;
-      border: 1px solid #4472c4;
-      border-radius: 3px;
-    }
+
     .field{
       color:#4472C4;
       margin-left: 15px;
       font-weight: 600;
       white-space: nowrap;
+      display: flex;
+      align-items: center;
     }
-    .campos > div > i,
+    .campos > div > div > i,
     .acoesParams > div{
       flex:1 1 auto;
       border-radius: 5px;
