@@ -162,6 +162,7 @@ export default {
         file:[],
         emcima:false,
         registros:[],
+        showAlert:false,
         newparams:{
           "UF":'',
           "base":'',
@@ -453,7 +454,6 @@ export default {
       this.$bvModal.hide('modal-ABC')
       this.$bvModal.show('modal-ABC')
     },
-
     onexport () { // On Click Excel download button
       var itens=[]
       this.itens.forEach(function(v){

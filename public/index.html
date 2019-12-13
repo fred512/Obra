@@ -15,19 +15,6 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
     <script>
-      function onDrop(e) {
-        e.preventDefault()
-        var data = e.dataTransfer.getData('text')
-        console.log(data)
-        e.target.appendChild(document.getElementById(data))
-      }
-      function onDrag(e) {
-        e.dataTransfer.setData('text', e.target.id)
-        console.log('drag start', e.target.id)
-      }
-      function dropOn(e) {
-        e.preventDefault()
-      }
     </script>
   </body>
 </html>

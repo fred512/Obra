@@ -41,7 +41,6 @@
         </div>
       </div>
     </b-modal>
-
     <b-modal id="modal-multi-2" title="Doar com PicPay" ok-only centered>
       <div class="qr-picpay">
         <img src="./assets/pcipay-fred.png" alt="">
@@ -64,6 +63,21 @@
         <Rodape />
       </keep-alive>
     </div>
+    <div v-show="showAlert" class="browser">
+      <div style="text-align:center;width:100%;"><strong> Atenção !</strong></div> 
+      <p>Este aplicativo funciona melhor no navegadores/versões abaixo</p>
+      <p> - Chrome acima da versão 62</p>
+      <p> - Firefox acima da versão 58</p>
+      <p> - Opera acima da versão 58</p>
+      <p>Esses navegadores com versões anteriores à estas irão apresentar imcompatibilidades</p>
+      <p>Voce está navegando com o {{browser.name}} versão {{browser.version}}
+      <p>Os navegadores Safari, Edge e InternetExplorer vão apresentar problemas em todas as versões.</p>
+      <b-form-checkbox v-model="mostraAlerta" 
+         @change="guardaAlerta()" size="lg">Não mostrar esta mensagem novamente
+      </b-form-checkbox>
+      <b-button class="mt-3" block variant="warning" @click="showAlert=false">Sair</b-button>
+    </div>
+
     <div class="banner">
       <div v-if="local.indexOf('www.gigovvt')>-1||local.indexOf('localhost:8082')>-1">
         <img src="./assets/logo-GIGOV-200x168.png" alt="">
@@ -87,7 +101,21 @@ import Rodape from "@/components/rodape.vue"
 export default {
   name: 'app',
   components: { Params,Grid,Rodape  },
+  data:function(){
+    return{
+      showAlert:false,
+      browser:''
+    }
+  },
+  methods:{
+    guardaAlerta(){
+      localStorage.setItem('guardaAlerta',true)
+    }
+  },
   mounted() {
+    if (localStorage.getItem('guardaAlerta')) {
+      this.guardaAlerta=localStorage.getItem('itens')
+    }
     if (localStorage.getItem('itens')) {
       this.$store.commit('gravaItens',JSON.parse(localStorage.getItem('itens')));
     }
@@ -97,12 +125,37 @@ export default {
     const container = this.$el.querySelector(".grid")
     setTimeout(() => {
       container.scrollTop = container.scrollHeight;
-    }, 1500);
+    }, 1500)
+    function get_browser(){
+      var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
+      if(/trident/i.test(M[1])){
+          tem=/\brv[ :]+(\d+)/g.exec(ua) || []; 
+          return {name:'IE',version:(tem[1]||'')};
+          }   
+      if(M[1]==='Chrome'){
+          tem=ua.match(/\bOPR\/(\d+)/)
+          if(tem!=null)   {return {name:'Opera', version:tem[1]};}
+          }   
+      M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+      if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
+      return {
+        name: M[0],
+        version: M[1]
+      };
+    }
+    if (!this.guardaAlerta){
+      var browser=get_browser();
+      this.browser=browser
+      if ((browser.name=="Chrome"&&parseInt(browser.version)<62)||
+          (browser.name=="Firefox"&&parseInt(browser.version)<100)||
+          (browser.name=="Opera"&&parseInt(browser.version)<61)
+          ) this.showAlert=true
+    }
   },
   computed:{
     local(){
       return this.$local
-    }
+    },
   }
 
 }
@@ -312,5 +365,25 @@ body{
 .emcima{
   top: auto;
   bottom: 35px !important;
+}
+.browser{
+  position: fixed !important;
+  top:30% !important;
+  left:5%;
+  text-align: left;
+  line-height: 35px;
+  width: fit-content !important;
+  max-width: calc(90%) !important;
+  height: fit-content !important;
+  -webkit-box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
+  -moz-box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
+  box-shadow: inset 0px 0px 4px 1px rgba(0,0,0,0.35);
+  box-sizing: border-box;
+  padding: 7px;
+  background-color: rgba(153,0,0,0.75);
+  color:#fff000;
+  font-size:2rem;
+  z-index: 1;
+  padding: 10px;
 }
 </style>
