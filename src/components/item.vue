@@ -750,7 +750,7 @@ export default {
   .alerta input,
   .alerta textarea,
   .alerta{
-    color: #ffc107 !important;
+    color: #ffa000 !important;
     font-weight: 700;
   }
   .erro,
