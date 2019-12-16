@@ -18,16 +18,17 @@ export default {
 
 <style>
   .progresso{
-    width: 65%;
+    width: 95%;
     margin: 10px auto !important;
     background-color: #795548 !important;
+    border-radius: 8px;
   }
   .progresscard{
     width: 70% !important;
     margin-top: 0;
     height: 3.5rem;
     position: fixed;
-    border-radius: 4px;
+    border-radius: 8px;
     z-index: 1;
     top: 40vh;
     left: 10%;
