@@ -1,7 +1,7 @@
 <template>
   <div class="resumo">
     <div class="contato text-info">
-      <i class="fa fa-envelope fa-2x"></i>
+      <i class="fa fa-envelope fa-2x" style="cursor:default !important"></i>
       &nbsp;{{contato}}
     </div>
     <div class="tutoriais">

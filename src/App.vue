@@ -447,4 +447,7 @@ body {
   z-index: 1;
   padding: 10px;
 }
+.fa{
+  cursor: pointer ;
+}
 </style>
