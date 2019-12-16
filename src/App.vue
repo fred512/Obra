@@ -429,7 +429,7 @@ body {
 }
 .browser {
   position: fixed !important;
-  top: 30% !important;
+  top: 10% !important;
   left: 5%;
   text-align: left;
   line-height: 35px;
