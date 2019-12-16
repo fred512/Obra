@@ -44,7 +44,7 @@
         <i class="fa fa-long-arrow-up text-success fa-2x"></i>
         <i class="fa fa-file-excel-o text-success fa-2x"></i>
       </div>
-      <div @click="onexport()" title="Exporta em formato .xlsx">
+      <div @click="onexport(itens)" title="Exporta em formato .xlsx">
         <i class="fa fa-file-excel-o fa-2x text-success"></i>
         <i class="fa fa-long-arrow-down text-success fa-2x"></i>
       </div>
@@ -152,6 +152,13 @@
       header-bg-variant="info"
       body-bg-variant="info"
     >
+      <template v-slot:modal-title>
+        <span>Curva ABC</span>
+        <div @click="onexport(arrayABC)" title="Exporta Curva ABC em formato .xlsx">
+          <i class="fa fa-file-excel-o fa-1x"></i>
+          <i class="fa fa-long-arrow-down fa-1x"></i>
+        </div>
+      </template>
       <b-table
         striped
         header-variant="info"
@@ -207,14 +214,14 @@ export default {
       },
       fields: [
         { key: "Seq", sortable: false },
-        { key: "Item", sortable: true },
-        { key: "Orgao", sortable: false, label: "Órgão" },
-        { key: "Codigo", sortable: false, label: "Código" },
-        { key: "Descricao", sortable: false, label: "Descrição" },
-        { key: "Unid", sortable: false },
-        { key: "Qtd", sortable: false },
-        { key: "Vl_Unit", sortable: true, label: "Preço Unit" },
-        { key: "Vl_Total", sortable: true, label: "Preço Total" },
+        { key: "item", sortable: true, label: "Item" },
+        { key: "orgao", sortable: false, label: "Órgão" },
+        { key: "codigo", sortable: false, label: "Código" },
+        { key: "descr", sortable: false, label: "Descrição" },
+        { key: "unid", sortable: false, label: "Unid" },
+        { key: "qtd", sortable: false, label: "Qtde" },
+        { key: "vlComBDI", sortable: true, label: "Preço Unit" },
+        { key: "valortot", sortable: true, label: "Preço Total" },
         { key: "Perc", sortable: true, label: "%" },
         { key: "Acumulado", sortable: true, label: "%Acum" }
       ],
@@ -520,14 +527,14 @@ export default {
             var perc = ((totItem.toFixed(2) * 100) / total).toFixed(2);
             var itemABC = {
               Seq: "",
-              Item: item.item,
-              Orgao: item.orgao,
-              Codigo: item.codigo,
-              Descricao: item.descr,
-              Unid: item.unid,
-              Qtd: totqtd,
-              Vl_Unit: item.vlComBDI,
-              Vl_Total: totItem,
+              item: item.item,
+              orgao: item.orgao,
+              codigo: item.codigo,
+              descr: item.descr,
+              unid: item.unid,
+              qtd: totqtd,
+              vlComBDI: item.vlComBDI,
+              valortot: totItem,
               Perc: perc
             };
             arrayItens.push(itemABC);
@@ -535,8 +542,8 @@ export default {
         }
       });
       var arrayItens = arrayItens.sort(function(a, b) {
-        if (a.Vl_Total > b.Vl_Total) return -1;
-        if (a.Vl_Total < b.Vl_Total) return 1;
+        if (a.valortot > b.valortot) return -1;
+        if (a.Vl_valortotTotal < b.valortot) return 1;
       });
       var acum = 0,
         seq = 1;
@@ -556,26 +563,23 @@ export default {
       this.$bvModal.hide("modal-ABC");
       this.$bvModal.show("modal-ABC");
     },
-    onexport() {
+    onexport(arrayExport) {
       // On Click Excel download button
       var itens = [];
-      this.itens.forEach(function(v) {
-        itens.push({
+      arrayExport.forEach(function(v, k) {
+        var item = {
           Item: v.item,
-          Orgão: v.orgao,
-          Código: v.codigo,
-          Descrição: v.descr,
+          Orgao: v.orgao,
+          Codigo: v.codigo,
+          Descrico: v.descr,
           Unid: v.unid,
           Qtd: v.qtd,
-          "Preço Unitário": v.vlComBDI,
-          "Preço Total": v.valortot
-          // 'Preço Total':v.vlComBDI!==''&&v.qtd!==''?v.qtd*v.vlComBDI:''
-        });
+          PrecoUnitário: v.vlComBDI,
+          PrecoTotal: v.valortot
+        };
+        itens.push(item);
       });
-      // export json to Worksheet of Excel
-      // only array possible
       var Itens = XLSX.utils.json_to_sheet(itens);
-
       // A workbook is the name given to an Excel file
       var wb = XLSX.utils.book_new(); // make Workbook of Excel
 
@@ -798,5 +802,20 @@ export default {
 }
 .modal-dialog-centered.modal-dialog-scrollable .modal-content {
   width: calc(80vw) !important;
+}
+.modal-title {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+.modal-title div {
+  color: #76ff03;
+  padding: 7px 10px;
+  border-radius: 9px;
+  -webkit-box-shadow: inset 0px 0px 8px 1px rgba(118, 255, 3, 0.8);
+  -moz-box-shadow: inset 0px 0px 8px 1px rgba(118, 255, 3, 0.8);
+  box-shadow: inset 0px 0px 8px 1px rgba(118, 255, 3, 0.8);
+  box-sizing: border-box;
 }
 </style>

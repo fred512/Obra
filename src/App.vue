@@ -99,7 +99,7 @@
       </keep-alive>
     </div>
     <div v-show="showAlert" class="browser">
-      <div style="text-align:center;width:100%;">
+      <div style="text-align:center;width:100%;text-decoration">
         <strong>Atenção !</strong>
       </div>
       <p>Voce está navegando com o {{browser.name}} na versão {{browser.version}}</p>
@@ -116,6 +116,7 @@
         v-model="mostraAlerta"
         @change="guardaAlerta()"
         size="lg"
+        style="font-size:35px"
       >Não mostrar esta mensagem novamente</b-form-checkbox>
       <b-button class="mt-3" block variant="warning" @click="showAlert=false">Sair</b-button>
     </div>
@@ -151,11 +152,12 @@ export default {
   methods: {
     guardaAlerta() {
       localStorage.setItem("guardaAlerta", true);
+      this.guardaAlerta = false;
     }
   },
   mounted() {
     if (localStorage.getItem("guardaAlerta")) {
-      this.guardaAlerta = localStorage.getItem("itens");
+      this.guardaAlerta = localStorage.getItem("guardaAlerta");
     }
     if (localStorage.getItem("itens")) {
       this.$store.commit(
@@ -199,7 +201,7 @@ export default {
         version: M[1]
       };
     }
-    if (this.guardaAlerta !== true) {
+    if (this.guardaAlerta !== "true") {
       var browser = get_browser();
       this.browser = browser;
       if (
@@ -430,24 +432,23 @@ body {
 .browser {
   position: fixed !important;
   top: 10% !important;
-  left: 5%;
+  left: 20%;
+  border-radius: 10px;
   text-align: left;
-  line-height: 35px;
-  width: fit-content !important;
-  max-width: calc(90%) !important;
+  width: calc(60%) !important;
   height: fit-content !important;
-  -webkit-box-shadow: inset 0px 0px 4px 1px rgba(0, 0, 0, 0.35);
-  -moz-box-shadow: inset 0px 0px 4px 1px rgba(0, 0, 0, 0.35);
-  box-shadow: inset 0px 0px 4px 1px rgba(0, 0, 0, 0.35);
+  -webkit-box-shadow: inset 0px 0px 10px 10px rgba(255, 240, 0, 0.65);
+  -moz-box-shadow: inset 0px 0px 10px 10px rgba(255, 240, 0, 0.65);
+  box-shadow: inset 0px 0px 10px 10px rgba(255, 240, 0, 0.65);
   box-sizing: border-box;
-  padding: 7px;
+  padding: 25px !important;
   background-color: rgba(153, 0, 0, 0.75);
   color: #fff000;
-  font-size: 2rem;
+  font-size: 1rem;
   z-index: 1;
   padding: 10px;
 }
-.fa{
-  cursor: pointer ;
+.fa {
+  cursor: pointer;
 }
 </style>
