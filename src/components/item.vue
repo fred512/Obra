@@ -301,12 +301,8 @@ export default {
     pesquisa(el){
       var target=el.toString()
       if (target.length<6) return
-      // if (this.itens[this.selecionado].orgao=='') {
-      //   this.toast('Informe o orgão para consultar itens','warning')
-      //   return
-      // }
-      this.$store.commit('setLoading',true);
-// this.loading=true
+      if (this.itens[this.selecionado].orgao=='') return
+      this.ItensPesquisados=[]
       var url='descricao.asp?uf='
         +this.params.UF+
         '&descr='+this.removeAcento(target)+
