@@ -13,9 +13,8 @@
       <span>Total Orçamento: {{valortotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}}</span>
     </div>
     <div class="iframe" v-if="iframeWeb">
-      <span>
-        Clique no ícone
-        <i class="fa fa-search"></i>' Pesquisa Itens' para sair
+      <span title="Sair da Pesquisa Itens">
+        <i class="fa fa-close fa-3x text-danger" @click="iframeWeb=false"></i>
       </span>
       <b-embed
         type="iframe"
@@ -25,9 +24,8 @@
       ></b-embed>
     </div>
     <div class="iframe" v-if="iframeIntranet">
-      <span>
-        Clique no ícone
-        <i class="fa fa-search"></i>' Pesquisa Itens' para sair
+      <span title="Sair da Pesquisa Itens">
+        <i class="fa fa-close fa-3x text-danger" @click="iframeIntranet=false"></i>
       </span>
       <b-embed
         type="iframe"
@@ -139,12 +137,12 @@ export default {
 .iframe span {
   position: fixed;
   top: 21%;
-  width: 65%;
-  left: 15%;
+  width: fit-content !important;
+  left: 84%;
   z-index: 99;
   font-size: 30px;
   font-weight: bold;
-  background-color: #ffff00;
+  /* background-color: #ffff00; */
 }
 .contato {
   font-size: 1rem;

@@ -201,25 +201,30 @@ export default {
     }
   },
   methods:{
-    editaItem(item){
+    async editaItem(item){
       this.itens.map(function(el){
         return el.edita=false
       })
       this.selecionado=item.id
       item.edita=true
+      this.calculaEmcima(item.id)
+    },
+    async calculaEmcima(id){
       var self=this
       setTimeout(function() {
-        var pai=document.querySelector('.conteudoGrid').clientHeight
-        pai=pai+document.querySelector('.conteudoGrid').getBoundingClientRect().y
-        var elem=document.querySelector('#linha'+item.id)
-        var filho=elem.getBoundingClientRect().y
-        if (filho>(pai-100)) self.emcima=true
+      var pai=document.querySelector('.conteudoGrid').clientHeight
+      pai=pai+document.querySelector('.conteudoGrid').getBoundingClientRect().y
+      var elem=document.querySelector('#linha'+id)
+      var filho=elem.getBoundingClientRect().y
+      if (filho>(pai-200)){
+        self.emcima=true
+      } 
+      else {
+        self.emcima=false
+      }
         // linha abaixo para centralizar a linha verticalmente
         // document.querySelector('#app > div.conteudo > div.grid').scrollTop=elem.offsetTop-200
-      }, 300,item);
-    },
-    chamaItens(){
-      this.$bvModal.show('modal-itens')
+      }, 300,self);
     },
     toast(msg,variant) {
       this.$bvToast.toast(msg, {
@@ -365,7 +370,7 @@ export default {
       item.erro = JSON.parse(critica.split('||')[0])
       item.alerta = JSON.parse(critica.split('||')[1])
       var refer=critica.split("||")[2]
-      if (item.valor == ""&&refer!==undefined) item.valor = critica.split('||')[2]
+      if (refer!==undefined) item.valor = critica.split('||')[2]
       this.$store.commit('gravaItens', this.itens);
       var i=item.id
       this.selecionado=i
@@ -375,6 +380,7 @@ export default {
       }
       item.edita=false
       item.add=false
+      this.emcima=false
       this.ItensPesquisados=[]
       this.$store.commit('calculatotal');
       this.$forceUpdate()
@@ -437,6 +443,7 @@ export default {
         var elem=this.$refs["tr-" + (this.selecionado)][0]
         document.querySelector('#app > div.conteudo > div.grid').scrollTop=elem.offsetTop-200
       }, 200);
+      this.calculaEmcima(this.selecionado)
     },
 
   },

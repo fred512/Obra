@@ -146,7 +146,8 @@ export default {
   data: function() {
     return {
       showAlert: false,
-      browser: ""
+      browser: "",
+      mostraAlerta:false
     };
   },
   methods: {
