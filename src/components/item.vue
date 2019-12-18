@@ -41,7 +41,7 @@
         v-show="!mostraerro&&!mostraalerta||(mostraerro&&item.erro.length>0)||(mostraalerta&&item.alerta.length>0)"
       >
         <div class="td">
-          <div>
+          <div title="Sequência do Item">
             <input
               type="text"
               v-model="item.item"
@@ -51,9 +51,8 @@
           </div>
         </div>
         <div class="td">
-          <div
-            :class="{'hide':(item.orgao==''&&item.codigo==''&&item.unid==''&&item.qtd==''&&item.vlComBDI==''&&!item.add)}"
-          >
+          <div title="Selecione o Órgão. Deixe em branco esse campo se essa linha for de Grupo de itens"
+               :class="{'hide':(item.orgao==''&&item.codigo==''&&item.unid==''&&item.qtd==''&&item.vlComBDI==''&&!item.add)}">
             <input
               type="text"
               v-model="item.orgao"
@@ -72,7 +71,7 @@
           </div>
         </div>
         <div class="td">
-          <div
+          <div title="Código do produto. Deixe em branco esse campo for linha de Grupo de itens ou for pesquisar  o item por descrição."
             :class="{'hide':(item.orgao==''&&item.codigo==''&&item.unid==''&&item.qtd==''&&item.vlComBDI==''&&!item.add)}"
           >
             <input
@@ -96,7 +95,7 @@
               :disabled="!item.edita"
               rows="1"
               max-rows="6"
-              title="Selecione um Órgão para pesquisar itens"
+              title="Selecione um Órgão para pesquisar itens por descrição"
             ></b-form-textarea>
             <ul
               class="autocomplete"
@@ -121,7 +120,7 @@
           </div>
         </div>
         <div class="td">
-          <div
+          <div title="Unidade do item."
             :class="{'hide':(item.orgao==''&&item.codigo==''&&item.unid==''&&item.qtd==''&&item.vlComBDI==''&&!item.add)}"
           >
             <input
@@ -133,7 +132,7 @@
           </div>
         </div>
         <div class="td">
-          <div
+          <div title="Quantidade do item. Se teclar <ENTER> grava o item"
             :class="{'hide':(item.orgao==''&&item.codigo==''&&item.unid==''&&item.qtd==''&&item.vlComBDI==''&&!item.add)}"
           >
             <input
@@ -148,7 +147,7 @@
           </div>
         </div>
         <div class="td">
-          <div
+          <div title="Preço unitário do item. Se teclar <ENTER> grava o item"
             :class="{'hide':(item.orgao==''&&item.codigo==''&&item.unid==''&&item.qtd==''&&item.vlComBDI==''&&!item.add)}"
           >
             <input
@@ -417,7 +416,7 @@ export default {
     pesquisa(el) {
       var target = el.toString();
       if (target.length < 6) return;
-      if (this.itens[this.selecionado].orgao == "") return;
+      if (this.itens[this.selecionado].orgao == "") return
       this.$store.commit("setLoading", true);
       this.ItensPesquisados = [];
       var url =
