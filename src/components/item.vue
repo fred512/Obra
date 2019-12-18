@@ -498,7 +498,8 @@ export default {
       item.edita = false;
       item.add = false;
       this.emcima = false;
-      this.ItensPesquisados = [];
+      this.ItensPesquisados = []
+      this.registrosOrgao=[]
       this.$store.commit("calculatotal");
       this.$forceUpdate();
     },
