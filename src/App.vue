@@ -120,7 +120,6 @@
       >Não mostrar esta mensagem novamente</b-form-checkbox>
       <b-button class="mt-3" block variant="warning" @click="showAlert=false">Sair</b-button>
     </div>
-
     <div class="banner">
       <div v-if="local.indexOf('www.gigovvt')>-1||local.indexOf('localhost:8082')>-1">
         <img src="./assets/logo-GIGOV-200x168.png" alt />
@@ -128,12 +127,12 @@
         <img src="./assets/riscocaixa.png" alt />
       </div>
       <div v-else>
-        <div id="banner1">  </div>
-        <div id="banner2">  </div>
-        <div id="banner3">  </div>
+        <div id="banner1"></div>
+        <!-- <div id="banner2"></div>
+        <div id="banner3"></div>-->
         <!-- <img src="./assets/banner1.jpg" alt /> -->
         <!-- <img src="./assets/banner2.jpg" alt />
-        <img src="./assets/banner3.jpg" alt /> -->
+        <img src="./assets/banner3.jpg" alt />-->
       </div>
     </div>
   </div>
@@ -150,7 +149,7 @@ export default {
     return {
       showAlert: false,
       browser: "",
-      mostraAlerta:false
+      mostraAlerta: false
     };
   },
   methods: {
@@ -214,6 +213,22 @@ export default {
         (browser.name == "Opera" && parseInt(browser.version) < 61)
       )
         this.showAlert = true;
+    }
+    if (
+      this.local.indexOf("www.gigovvt") == -1 &&
+      this.local.indexOf("localhost:8082") == -1
+    ) {
+      var banner1 = document.querySelector("body >div:first-child");
+      document.getElementById("banner1").appendChild(banner1);
+      // var banner2 = document.querySelector("body >div:nth-child(3)");
+      // document.getElementById("banner2").appendChild(banner2);
+    }
+    if (
+      this.local.indexOf("www.planilhadeobra") == -1 &&
+      this.local.indexOf("localhost:8080") == -1
+    ) {
+      var banner1 = document.querySelector("body >div:first-child");
+      banner1.style = "display:none";
     }
   },
   computed: {
@@ -318,7 +333,7 @@ body {
   display: grid;
   max-width: calc(99vw);
   grid-template-rows: 10vh 79vh 10vh;
-  grid-template-columns: 1fr 100px;
+  grid-template-columns: 1fr 120px;
   grid-template-areas:
     "cabecalho cabecalho"
     "conteudo banner"
@@ -353,22 +368,31 @@ body {
 }
 .banner {
   grid-area: banner;
-  background-color: #4472c4;
-  margin: 6px 3px;
+  /* background-color: #4472c4; */
+  margin: 6px 0px;
   border-radius: 5px;
-  height: 98%;
+  height: fit-content;
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
 }
+.banner > div > div > div {
+  border-radius: 15px;
+  transform: scale(0.9);
+}
+.banner > div,
 .banner > div > img,
 .banner > div > div {
-  width: 90%;
+  width: fit-content;
   flex: 1;
   height: auto;
-  margin: 1vh auto;
-  border-radius: 5px;
+  /* margin: 1vh auto; */
+  border-radius: 8px;
 }
+.banner > div > div img {
+  border-radius: 8px;
+}
+
 .rodape {
   height: 90%;
   grid-area: rodape;
@@ -404,7 +428,7 @@ body {
   max-width: calc(100%);
   flex-grow: 1;
   grid-area: conteudo;
-  background-image: url("./assets/logo4-8.png");
+  background-image: url("./assets/logo4-10.png");
 }
 #app > div.cabecalho > div > img {
   max-width: 60px;
