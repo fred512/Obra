@@ -1,7 +1,7 @@
 
 export default {
   methods: {
-    async criticaItem(item,args,self){
+    async criticaItem(item,args,self,atualiza){
       var erro=[],alerta=[]
       if (item.codigo=='') return JSON.stringify(erro) + '||' + JSON.stringify(alerta)
       if (item.orgao.toString().toUpperCase().indexOf('COMP')>=0
@@ -30,16 +30,18 @@ export default {
         }
 //###### varifica descrição do item cadastrado #####
         if (cadastrado.descr.toUpperCase()!==item.descr.toUpperCase()) alerta.push({'alerta':'Verifique a descrição do item'})
-// ##### item repetido com preço diferente ####
-      var repetido=self.itens.filter(el=>{
-        return el.codigo==item.codigo
-      })
-      if (repetido.length>1){
-        var valorrep=repetido[0].vlComBDI
-        var numrep=self.itens.filter(el=>{
-          return el.vlComBDI!==valorrep&&item.codigo==el.codigo
+// ##### item repetido com preço diferente <<<se não for atualizaçõ de itens>>>> ####
+      if (!atualiza){
+        var repetido=self.itens.filter(el=>{
+          return el.codigo==item.codigo
         })
-        if (numrep.length>0) erro.push({'erro':"Item repetido com valor diferente."})
+        if (repetido.length>1){
+          var valorrep=repetido[0].vlComBDI
+          var numrep=self.itens.filter(el=>{
+            return el.vlComBDI!==valorrep&&item.codigo==el.codigo
+          })
+          if (numrep.length>0) erro.push({'erro':"Item repetido com valor diferente."})
+        }
       }
 // ##### verifica valor do item ####
       var valor=''

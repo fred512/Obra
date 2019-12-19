@@ -315,7 +315,7 @@ export default {
               item.base = novabase;
               item.vlComBDI = item.valor;
               item.valortot = parseFloat(item.qtd * item.vlComBDI).toFixed(2);
-              var critica = await self.criticaItem(item, self.params, self);
+              var critica = await self.criticaItem(item, self.params, self,1);
               var erro = critica.split("||")[0];
               if (erro) item.erro = JSON.parse(erro);
               var alerta = critica.split("||")[1];

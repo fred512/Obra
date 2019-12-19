@@ -128,9 +128,12 @@
         <img src="./assets/riscocaixa.png" alt />
       </div>
       <div v-else>
-        <img src="./assets/banner1.jpg" alt />
-        <img src="./assets/banner2.jpg" alt />
-        <img src="./assets/banner3.jpg" alt />
+        <div id="banner1">  </div>
+        <div id="banner2">  </div>
+        <div id="banner3">  </div>
+        <!-- <img src="./assets/banner1.jpg" alt /> -->
+        <!-- <img src="./assets/banner2.jpg" alt />
+        <img src="./assets/banner3.jpg" alt /> -->
       </div>
     </div>
   </div>
@@ -358,7 +361,8 @@ body {
   justify-content: space-evenly;
   flex-direction: column;
 }
-.banner > div > img {
+.banner > div > img,
+.banner > div > div {
   width: 90%;
   flex: 1;
   height: auto;

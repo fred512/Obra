@@ -41,10 +41,10 @@ export default new Vuex.Store({
         var valortotal=0
         for (var i=0;i<itens.length;i++){
           itens[i].edita=false
-          if (itens[i].valor!=='') {
-            itens[i].vlComBDI=parseFloat(itens[i].valor*(1+(state.params.BDI/100))).toFixed(2)
-            itens[i].valortot=parseFloat(itens[i].qtd*itens[i].vlComBDI).toFixed(2)
-          }
+          // if (itens[i].valor!=='') {
+          //   itens[i].vlComBDI=parseFloat(itens[i].valor*(1+(state.params.BDI/100))).toFixed(2)
+          //   itens[i].valortot=parseFloat(itens[i].qtd*itens[i].vlComBDI).toFixed(2)
+          // }
           if (itens[i].unid==''&&itens[i].codigo==''){
             itens[i].item=parseInt(item)+1
             item=itens[i].item+'.'+0
@@ -56,10 +56,6 @@ export default new Vuex.Store({
             }
           }
           else{
-            // var itm=item.split('.')
-            // itm[itm.length-1]=parseInt(itm[itm.length-1])+1
-            // itens[i].item=itm.join('.')
-            // item=itens[i].item
             var precisao=3
             if (parseInt(item)>9) precisao=4
             item=(parseFloat(item)+0.01).toPrecision(precisao)
