@@ -76,7 +76,6 @@
           >
             <input
               type="text"
-              id="codigo"
               v-model="item.codigo"
               @change="codigo"
               :disabled="!item.edita"

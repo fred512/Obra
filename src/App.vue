@@ -214,12 +214,13 @@ export default {
       )
         this.showAlert = true;
     }
+    var banner1=''
     if (
       this.local.indexOf("www.gigovvt") == -1 &&
       this.local.indexOf("localhost:8082") == -1
     ) {
-      var banner1 = document.querySelector("body >div:first-child");
-      document.getElementById("banner1").appendChild(banner1);
+      banner1 = document.querySelector("body >div:first-child");
+      if (banner1!==null) document.getElementById("banner1").appendChild(banner1);
       // var banner2 = document.querySelector("body >div:nth-child(3)");
       // document.getElementById("banner2").appendChild(banner2);
     }
@@ -227,7 +228,7 @@ export default {
       this.local.indexOf("www.planilhadeobra") == -1 &&
       this.local.indexOf("localhost:8080") == -1
     ) {
-      var banner1 = document.querySelector("body >div:first-child");
+      banner1 = document.querySelector("body >div:first-child");
       banner1.style = "display:none";
     }
   },

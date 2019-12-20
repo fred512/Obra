@@ -5,6 +5,10 @@
       &nbsp;{{contato}}
     </div>
     <div class="tutoriais">
+      <i class="fa fa-youtube-play text-danger" v-b-modal.modal-videos></i>
+      Video Tutoriais
+    </div>
+    <div class="tutoriais">
       <i class="fa fa-search" @click="showIframe"></i>
       Pesquisa Itens
     </div>
@@ -34,6 +38,41 @@
         allowfullscreen
       ></b-embed>
     </div>
+    <div class="iVideos" v-if="iVideos">
+      <span title="Sair do Vídeo Tutorial">
+        <i class="fa fa-close fa-2x text-danger" @click="iVideos=false"></i>
+      </span>
+      <b-embed
+        type="iframe"
+        aspect="21by9"
+        :src="urlVideo"
+        allowfullscreen
+      ></b-embed>
+    </div>
+    <b-modal
+      id="modal-videos"
+      
+      header-bg-variant="info"
+      header-text-variant="light"
+      body-bg-variant="info"
+      footer-bg-variant="info"
+      body-text-variant="danger"
+      ok-only
+      hide-backdrop 
+      content-class="shadow"
+      title="Vídeos Tutoriais"
+      @ok="$bvModal.hide('modal-videos')"
+      >
+      <div class="videos">
+        <b-list-group>
+          <b-list-group-item v-for="(video,i) in videos" 
+                :key="i"
+                @click="exibeVideo(video.url)"
+           >{{video.descricao}}</b-list-group-item>
+        </b-list-group>
+      </div>
+    </b-modal>
+
   </div>
 </template>
 
@@ -43,7 +82,10 @@ export default {
   data: function() {
     return {
       iframeWeb: false,
-      iframeIntranet: false
+      iframeIntranet: false,
+      iVideos:false,
+      videos:[],
+      urlVideo:''
     };
   },
   methods: {
@@ -57,11 +99,19 @@ export default {
       } else {
         this.iframeWeb = !this.iframeWeb;
       }
+    },
+    exibeVideo(url){
+      this.urlVideo=url
+      this.iVideos=true
+      this.$bvModal.hide("modal-videos");
     }
   },
   mounted() {
     this.$store.commit("calculatotal");
     const self = this;
+    this.videos=[
+      {descricao:'Como digitar uma planilha do zero',url:'https://www.youtube.com/embed/tz8Tm466SRY'}
+    ]
     window.addEventListener("keypress", e => {
       if (e.keyCode == 27) {
         e.stopPropagation();
@@ -149,5 +199,16 @@ export default {
   font-weight: 600;
   display: flex;
   align-items: center;
+}
+.iVideos{
+  width: 85%;
+  max-height: 60vh;
+  margin: 0 auto;
+  z-index: 1;
+  position: fixed;
+  top: 15%;
+  left: 7%;
+  background-color: #ddd;
+
 }
 </style>
