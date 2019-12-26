@@ -42,37 +42,33 @@
       <span title="Sair do Vídeo Tutorial">
         <i class="fa fa-close fa-2x text-danger" @click="iVideos=false"></i>
       </span>
-      <b-embed
-        type="iframe"
-        aspect="21by9"
-        :src="urlVideo"
-        allowfullscreen
-      ></b-embed>
+      <b-embed type="iframe" aspect="21by9" :src="urlVideo" allowfullscreen></b-embed>
     </div>
     <b-modal
       id="modal-videos"
-      
+      size="xl"
       header-bg-variant="info"
       header-text-variant="light"
       body-bg-variant="info"
       footer-bg-variant="info"
       body-text-variant="danger"
       ok-only
-      hide-backdrop 
+      hide-backdrop
       content-class="shadow"
       title="Vídeos Tutoriais"
-      @ok="$bvModal.hide('modal-videos')"
-      >
+      @ok="$bvModal.hide('modal-videos');mostralinkservidor=false"
+    >
       <div class="videos">
         <b-list-group>
-          <b-list-group-item v-for="(video,i) in videos" 
-                :key="i"
-                @click="exibeVideo(video.url)"
-           >{{video.descricao}}</b-list-group-item>
+          <b-list-group-item v-for="(video,i) in videos" :key="i" @click="exibeVideo(video.url)">
+            <span>{{i+1}}&nbsp;-&nbsp;</span>
+            {{video.descricao}}
+            <br />
+            <span v-show="mostralinkservidor">{{video.urlIntranet}}</span>
+          </b-list-group-item>
         </b-list-group>
       </div>
     </b-modal>
-
   </div>
 </template>
 
@@ -83,9 +79,10 @@ export default {
     return {
       iframeWeb: false,
       iframeIntranet: false,
-      iVideos:false,
-      videos:[],
-      urlVideo:''
+      iVideos: false,
+      videos: [],
+      mostralinkservidor: false,
+      urlVideo: ""
     };
   },
   methods: {
@@ -100,18 +97,36 @@ export default {
         this.iframeWeb = !this.iframeWeb;
       }
     },
-    exibeVideo(url){
-      this.urlVideo=url
-      this.iVideos=true
-      this.$bvModal.hide("modal-videos");
+    exibeVideo(url) {
+      if (
+        this.$local.indexOf("www.planilhadeobra") !== -1 ||
+        this.$local.indexOf("localhost:8080") !== -1
+      ) {
+        this.urlVideo = url;
+        this.iVideos = true;
+        this.$bvModal.hide("modal-videos");
+      } else {
+        this.mostralinkservidor = true;
+      }
     }
   },
   mounted() {
     this.$store.commit("calculatotal");
     const self = this;
-    this.videos=[
-      {descricao:'Como digitar uma planilha do zero',url:'https://www.youtube.com/embed/tz8Tm466SRY'}
-    ]
+    this.videos = [
+      {
+        descricao: "Como digitar uma planilha do zero",
+        url: "https://www.youtube.com/embed/tz8Tm466SRY",
+        urlIntranet:
+          "//es7143sr001/GIGOVVT/Publico/AplicativosGIGOV/Obra/VideosTutoriais/Planilha-zero.avi"
+      },
+      {
+        descricao: "Como carregar uma planilha já definida",
+        url: "https://www.youtube.com/embed/HXJx1TWWQtQ",
+        urlIntranet:
+          "//es7143sr001/GIGOVVT/Publico/AplicativosGIGOV/Obra/VideosTutoriais/CARREGA-Planilha.avi"
+      }
+    ];
     window.addEventListener("keypress", e => {
       if (e.keyCode == 27) {
         e.stopPropagation();
@@ -159,6 +174,7 @@ export default {
 .tutoriais {
   color: #4472c4;
   font-size: 13px;
+  cursor: pointer;
   font-weight: 700;
   display: flex;
   flex-direction: column;
@@ -200,7 +216,7 @@ export default {
   display: flex;
   align-items: center;
 }
-.iVideos{
+.iVideos {
   width: 85%;
   max-height: 60vh;
   margin: 0 auto;
@@ -209,6 +225,15 @@ export default {
   top: 15%;
   left: 7%;
   background-color: #ddd;
-
+}
+.list-group-item {
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1.3rem;
+  padding: 0.2rem 1.25rem;
+  -webkit-box-shadow: inset 0px 0px 4px 1px rgba(0, 0, 3, 0.8);
+  -moz-box-shadow: inset 0px 0px 4px 1px rgba(0, 0, 3, 0.8);
+  box-shadow: inset 0px 0px 4px 1px rgba(0, 0, 3, 0.8);
+  box-sizing: border-box;
 }
 </style>
