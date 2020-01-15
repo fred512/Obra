@@ -31,11 +31,14 @@
         >Desonerado</b-form-checkbox>
       </div>
       <div class="field">
-        <div title="Curva ABC">
-          <i class="fa fa-bar-chart fa-2x" v-on:click="curvaABC()"></i>
+        <div title="Curva ABC" @click="curvaABC()">
+          <i class="fa fa-bar-chart fa-2x"></i>
         </div>
-        <div title="Totaliza Planilha">
-          <i class="fa fa-calculator fa-2x" @click="totalizaItens()"></i>
+        <div title="Totaliza Planilha" @click="totalizaItens()">
+          <i class="fa fa-calculator fa-2x"></i>
+        </div>
+        <div title="Relátorio de Irregularidades" @click="divergencias()">
+          <i class="fa fa-bug fa-2x" aria-hidden="true"></i>
         </div>
       </div>
     </div>
@@ -563,9 +566,16 @@ export default {
       this.$bvModal.hide("modal-ABC");
       this.$bvModal.show("modal-ABC");
     },
-    onexport(arrayExport) {
+    divergencias(){
+      var rel=this.itens.filter(function(el){
+        return el.erro!=""||el.alerta!=''
+      })
+      this.onexport(rel,'divergencias')
+    },
+    onexport(arrayExport,relatorio) {
       // On Click Excel download button
-      var itens = [];
+      var itens = []; 
+      var itenscomerro=[]
       arrayExport.forEach(function(v, k) {
         var item = {
           Item: v.item,
@@ -577,8 +587,23 @@ export default {
           PrecoUnitário: v.vlComBDI,
           PrecoTotal: v.valortot
         };
-        itens.push(item);
+        if (relatorio=='divergencias'){
+          var numdiv=Math.max.apply(null, [v.erro.length,v.alerta.length] );
+          for (var i=0;i<numdiv;i++){
+            var itemerro={...item}
+            itemerro.Irregularidade=''
+            itemerro.alerta=''
+            if (v.erro[i]!=undefined) itemerro.Irregularidade=v.erro[i].erro
+            if (v.alerta[i]!=undefined) itemerro.Alerta=v.alerta[i].alerta
+            itenscomerro.push(itemerro); 
+          }
+        } else {
+          itens.push(item); 
+        }
       });
+      if (relatorio=='divergencias'){
+        itens=itenscomerro
+      }
       var Itens = XLSX.utils.json_to_sheet(itens);
       // A workbook is the name given to an Excel file
       var wb = XLSX.utils.book_new(); // make Workbook of Excel
@@ -595,8 +620,11 @@ export default {
         { wpx: 40 },
         { wpx: 70 },
         { wpx: 90 },
-        { hidden: true }
       ];
+      if (relatorio='divergencias'){
+        wscols.push({wpx: 350 })
+        wscols.push({wpx: 350 })
+      }
       Itens["!cols"] = wscols;
       // export Excel file
       XLSX.writeFile(wb, "book.xlsx"); // name of the file is 'book.xlsx'
