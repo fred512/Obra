@@ -2,7 +2,7 @@
   <div class="resumo">
     <div class="contato text-info">
       <i class="fa fa-envelope fa-2x" style="cursor:default !important"></i>
-      &nbsp;{{contato}}
+      &nbsp;&nbsp;&nbsp;{{contato}}
     </div>
     <div class="tutoriais">
       <i class="fa fa-youtube-play text-danger" v-b-modal.modal-videos></i>
@@ -218,8 +218,12 @@ export default {
   font-weight: bold;
   /* background-color: #ffff00; */
 }
+.contato i {
+  margin-right: 3px;
+  font-size: 26px;
+}
 .contato {
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 600;
   display: flex;
   align-items: center;

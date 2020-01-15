@@ -587,7 +587,7 @@ export default {
           PrecoUnitário: v.vlComBDI,
           PrecoTotal: v.valortot
         };
-        if (relatorio == "divergencias") {
+        if (relatorio == "Divergencias") {
           var numdiv = Math.max.apply(null, [v.erro.length, v.alerta.length]);
           for (var i = 0; i < numdiv; i++) {
             var itemerro = { ...item };
@@ -602,7 +602,7 @@ export default {
           itens.push(item);
         }
       });
-      if (relatorio == "divergencias") {
+      if (relatorio == "Divergencias") {
         itens = itenscomerro;
       }
       var Itens = XLSX.utils.json_to_sheet(itens);
@@ -622,7 +622,7 @@ export default {
         { wpx: 70 },
         { wpx: 90 }
       ];
-      if ((relatorio = "divergencias")) {
+      if ((relatorio = "Divergencias")) {
         wscols.push({ wpx: 350 });
         wscols.push({ wpx: 350 });
       }
