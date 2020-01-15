@@ -47,7 +47,7 @@
         <i class="fa fa-long-arrow-up text-success fa-2x"></i>
         <i class="fa fa-file-excel-o text-success fa-2x"></i>
       </div>
-      <div @click="onexport(itens)" title="Exporta em formato .xlsx">
+      <div @click="onexport(itens,"xls")" title="Exporta em formato .xlsx">
         <i class="fa fa-file-excel-o fa-2x text-success"></i>
         <i class="fa fa-long-arrow-down text-success fa-2x"></i>
       </div>
@@ -157,7 +157,7 @@
     >
       <template v-slot:modal-title>
         <span>Curva ABC</span>
-        <div @click="onexport(arrayABC)" title="Exporta Curva ABC em formato .xlsx">
+        <div @click="onexport(arrayABC,"ABC")" title="Exporta Curva ABC em formato .xlsx">
           <i class="fa fa-file-excel-o fa-1x"></i>
           <i class="fa fa-long-arrow-down fa-1x"></i>
         </div>
