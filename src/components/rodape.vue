@@ -40,9 +40,13 @@
     </div>
     <div class="iVideos" v-if="iVideos">
       <span title="Sair do Vídeo Tutorial">
+        {{urlVideo}}
         <i class="fa fa-close fa-2x text-danger" @click="iVideos=false"></i>
       </span>
-      <b-embed type="iframe" aspect="21by9" :src="urlVideo" allowfullscreen></b-embed>
+      <!-- <a :href="urlVideo">{{urlVideo}}</a> -->
+      <b-embed type="video" aspect="4by3" controls>
+        <source :src="urlVideo" type="video/webm" />
+      </b-embed>
     </div>
     <b-modal
       id="modal-videos"
@@ -60,11 +64,9 @@
     >
       <div class="videos">
         <b-list-group>
-          <b-list-group-item v-for="(video,i) in videos" :key="i" @click="exibeVideo(video.url)">
+          <b-list-group-item v-for="(video,i) in videos" :key="i" @click="exibeVideo(video)">
             <span>{{i+1}}&nbsp;-&nbsp;</span>
             {{video.descricao}}
-            <br />
-            <span v-show="mostralinkservidor">{{video.urlIntranet}}</span>
           </b-list-group-item>
         </b-list-group>
       </div>
@@ -82,7 +84,8 @@ export default {
       iVideos: false,
       videos: [],
       mostralinkservidor: false,
-      urlVideo: ""
+      urlVideo: "",
+      tipo: "iframe"
     };
   },
   methods: {
@@ -97,16 +100,20 @@ export default {
         this.iframeWeb = !this.iframeWeb;
       }
     },
-    exibeVideo(url) {
+    exibeVideo(vid) {
       if (
         this.$local.indexOf("www.planilhadeobra") !== -1 ||
         this.$local.indexOf("localhost:8080") !== -1
       ) {
-        this.urlVideo = url;
+        this.urlVideo = vid.url;
+        this.tipo = "iframe";
         this.iVideos = true;
         this.$bvModal.hide("modal-videos");
       } else {
-        this.mostralinkservidor = true;
+        this.urlVideo = vid.urlIntranet;
+        this.tipo = "object";
+        this.iVideos = true;
+        this.$bvModal.hide("modal-videos");
       }
     }
   },
@@ -117,9 +124,10 @@ export default {
       {
         descricao: "Como digitar uma planilha do zero",
         url: "https://www.youtube.com/embed/tz8Tm466SRY",
-        urlIntranet:
-          "//es7143sr001/GIGOVVT/Publico/AplicativosGIGOV/Obra/VideosTutoriais/Planilha-zero.avi"
+        urlIntranet: "../assets/Videos/PlanilhaZero.webm"
       },
+      //"C:/ProjetoObra/Obra/src/assets/Videos/Planilha-zero.avi"
+      //          "//es7143sr001/GIGOVVT/Publico/AplicativosGIGOV/Obra/VideosTutoriais/Planilha-zero.avi"
       {
         descricao: "Como carregar uma planilha já definida",
         url: "https://www.youtube.com/embed/HXJx1TWWQtQ",

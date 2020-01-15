@@ -47,7 +47,7 @@
         <i class="fa fa-long-arrow-up text-success fa-2x"></i>
         <i class="fa fa-file-excel-o text-success fa-2x"></i>
       </div>
-      <div @click="onexport(itens,"xls")" title="Exporta em formato .xlsx">
+      <div @click="onexport(itens,'PlanilhadeObra')" title="Exporta em formato .xlsx">
         <i class="fa fa-file-excel-o fa-2x text-success"></i>
         <i class="fa fa-long-arrow-down text-success fa-2x"></i>
       </div>
@@ -157,7 +157,7 @@
     >
       <template v-slot:modal-title>
         <span>Curva ABC</span>
-        <div @click="onexport(arrayABC,"ABC")" title="Exporta Curva ABC em formato .xlsx">
+        <div @click="onexport(arrayABC,'CurvaABC')" title="Exporta Curva ABC em formato .xlsx">
           <i class="fa fa-file-excel-o fa-1x"></i>
           <i class="fa fa-long-arrow-down fa-1x"></i>
         </div>
@@ -318,7 +318,7 @@ export default {
               item.base = novabase;
               item.vlComBDI = item.valor;
               item.valortot = parseFloat(item.qtd * item.vlComBDI).toFixed(2);
-              var critica = await self.criticaItem(item, self.params, self,1);
+              var critica = await self.criticaItem(item, self.params, self, 1);
               var erro = critica.split("||")[0];
               if (erro) item.erro = JSON.parse(erro);
               var alerta = critica.split("||")[1];
@@ -566,16 +566,16 @@ export default {
       this.$bvModal.hide("modal-ABC");
       this.$bvModal.show("modal-ABC");
     },
-    divergencias(){
-      var rel=this.itens.filter(function(el){
-        return el.erro!=""||el.alerta!=''
-      })
-      this.onexport(rel,'divergencias')
+    divergencias() {
+      var rel = this.itens.filter(function(el) {
+        return el.erro != "" || el.alerta != "";
+      });
+      this.onexport(rel, "Divergencias");
     },
-    onexport(arrayExport,relatorio) {
+    onexport(arrayExport, relatorio) {
       // On Click Excel download button
-      var itens = []; 
-      var itenscomerro=[]
+      var itens = [];
+      var itenscomerro = [];
       arrayExport.forEach(function(v, k) {
         var item = {
           Item: v.item,
@@ -587,22 +587,23 @@ export default {
           PrecoUnitário: v.vlComBDI,
           PrecoTotal: v.valortot
         };
-        if (relatorio=='divergencias'){
-          var numdiv=Math.max.apply(null, [v.erro.length,v.alerta.length] );
-          for (var i=0;i<numdiv;i++){
-            var itemerro={...item}
-            itemerro.Irregularidade=''
-            itemerro.alerta=''
-            if (v.erro[i]!=undefined) itemerro.Irregularidade=v.erro[i].erro
-            if (v.alerta[i]!=undefined) itemerro.Alerta=v.alerta[i].alerta
-            itenscomerro.push(itemerro); 
+        if (relatorio == "divergencias") {
+          var numdiv = Math.max.apply(null, [v.erro.length, v.alerta.length]);
+          for (var i = 0; i < numdiv; i++) {
+            var itemerro = { ...item };
+            itemerro.Irregularidade = "";
+            itemerro.Alerta = "";
+            if (v.erro[i] != undefined)
+              itemerro.Irregularidade = v.erro[i].erro;
+            if (v.alerta[i] != undefined) itemerro.Alerta = v.alerta[i].alerta;
+            itenscomerro.push(itemerro);
           }
         } else {
-          itens.push(item); 
+          itens.push(item);
         }
       });
-      if (relatorio=='divergencias'){
-        itens=itenscomerro
+      if (relatorio == "divergencias") {
+        itens = itenscomerro;
       }
       var Itens = XLSX.utils.json_to_sheet(itens);
       // A workbook is the name given to an Excel file
@@ -619,15 +620,15 @@ export default {
         { wpx: 50 },
         { wpx: 40 },
         { wpx: 70 },
-        { wpx: 90 },
+        { wpx: 90 }
       ];
-      if (relatorio='divergencias'){
-        wscols.push({wpx: 350 })
-        wscols.push({wpx: 350 })
+      if ((relatorio = "divergencias")) {
+        wscols.push({ wpx: 350 });
+        wscols.push({ wpx: 350 });
       }
       Itens["!cols"] = wscols;
       // export Excel file
-      XLSX.writeFile(wb, "book.xlsx"); // name of the file is 'book.xlsx'
+      XLSX.writeFile(wb, relatorio + ".xlsx"); // name of the file is 'book.xlsx'
     },
     limpaPlanilha() {
       if (!confirm("Deseja apagar os dados desta planilha ?")) return;
