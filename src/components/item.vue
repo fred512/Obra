@@ -51,8 +51,10 @@
           </div>
         </div>
         <div class="td">
-          <div title="Selecione o Órgão. Deixe em branco esse campo se essa linha for de Grupo de itens"
-               :class="{'hide':(item.orgao==''&&item.codigo==''&&item.unid==''&&item.qtd==''&&item.vlComBDI==''&&!item.add)}">
+          <div
+            title="Selecione o Órgão. Deixe em branco esse campo se essa linha for de Grupo de itens"
+            :class="{'hide':(item.orgao==''&&item.codigo==''&&item.unid==''&&item.qtd==''&&item.vlComBDI==''&&!item.add)}"
+          >
             <input
               type="text"
               v-model="item.orgao"
@@ -71,7 +73,8 @@
           </div>
         </div>
         <div class="td">
-          <div title="Código do produto. Deixe em branco esse campo for linha de Grupo de itens ou for pesquisar  o item por descrição."
+          <div
+            title="Código do produto. Deixe em branco esse campo for linha de Grupo de itens ou for pesquisar  o item por descrição."
             :class="{'hide':(item.orgao==''&&item.codigo==''&&item.unid==''&&item.qtd==''&&item.vlComBDI==''&&!item.add)}"
           >
             <input
@@ -119,7 +122,8 @@
           </div>
         </div>
         <div class="td">
-          <div title="Unidade do item."
+          <div
+            title="Unidade do item."
             :class="{'hide':(item.orgao==''&&item.codigo==''&&item.unid==''&&item.qtd==''&&item.vlComBDI==''&&!item.add)}"
           >
             <input
@@ -131,7 +135,8 @@
           </div>
         </div>
         <div class="td">
-          <div title="Quantidade do item. Se teclar <ENTER> grava o item"
+          <div
+            title="Quantidade do item. Se teclar <ENTER> grava o item"
             :class="{'hide':(item.orgao==''&&item.codigo==''&&item.unid==''&&item.qtd==''&&item.vlComBDI==''&&!item.add)}"
           >
             <input
@@ -146,7 +151,8 @@
           </div>
         </div>
         <div class="td">
-          <div title="Preço unitário do item. Se teclar <ENTER> grava o item"
+          <div
+            title="Preço unitário do item. Se teclar <ENTER> grava o item"
             :class="{'hide':(item.orgao==''&&item.codigo==''&&item.unid==''&&item.qtd==''&&item.vlComBDI==''&&!item.add)}"
           >
             <input
@@ -292,6 +298,9 @@ export default {
       this.itens.map(function(el) {
         return (el.edita = false);
       });
+      this.ItensPesquisados = [];
+      this.registrosOrgao = [];
+      this.registrosBase = [];
       this.selecionado = item.id;
       item.edita = true;
       this.calculaEmcima(item.id);
@@ -415,7 +424,7 @@ export default {
     pesquisa(el) {
       var target = el.toString();
       if (target.length < 6) return;
-      if (this.itens[this.selecionado].orgao == "") return
+      if (this.itens[this.selecionado].orgao == "") return;
       this.$store.commit("setLoading", true);
       this.ItensPesquisados = [];
       var url =
@@ -496,8 +505,8 @@ export default {
       item.edita = false;
       item.add = false;
       this.emcima = false;
-      this.ItensPesquisados = []
-      this.registrosOrgao=[]
+      this.ItensPesquisados = [];
+      this.registrosOrgao = [];
       this.$store.commit("calculatotal");
       this.$forceUpdate();
     },
@@ -531,6 +540,11 @@ export default {
         alert("Selecione um item para inserir outro item apos este !");
         return;
       }
+      this.ItensPesquisados = [];
+      this.registrosOrgao = [];
+      this.itens.map(function(el) {
+        return (el.edita = false);
+      });
       this.$forceUpdate();
       this.add = true;
       var indice = 0;
