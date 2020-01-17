@@ -587,6 +587,10 @@ export default {
           PrecoUnitário: v.vlComBDI,
           PrecoTotal: v.valortot
         };
+        if (relatorio == "CurvaABC") {
+          item.Perc = v.Perc;
+          item.Acumulado = v.Acumulado;
+        }
         if (relatorio == "Divergencias") {
           var numdiv = Math.max.apply(null, [v.erro.length, v.alerta.length]);
           for (var i = 0; i < numdiv; i++) {
@@ -622,9 +626,13 @@ export default {
         { wpx: 70 },
         { wpx: 90 }
       ];
-      if ((relatorio = "Divergencias")) {
+      if (relatorio == "Divergencias") {
         wscols.push({ wpx: 350 });
         wscols.push({ wpx: 350 });
+      }
+      if (relatorio == "CurvaABC") {
+        wscols.push({ wpx: 35 });
+        wscols.push({ wpx: 35 });
       }
       Itens["!cols"] = wscols;
       // export Excel file
