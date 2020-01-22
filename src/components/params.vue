@@ -415,6 +415,8 @@ export default {
         if (alerta) item.alerta = JSON.parse(alerta);
         var refer = critica.split("||")[2];
         if (refer > 0 && refer !== undefined) item.valor = refer;
+        var itemcritica=critica.split("||")[3];
+        if (itemcritica!='') item.base=itemcritica.base
         if (
           item.descr.toLowerCase() !== "total" &&
           item.descr.toLowerCase().indexOf("sub-total") < 0 &&

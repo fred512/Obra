@@ -806,10 +806,15 @@ label {
 ul.autocomplete {
   list-style-type: none;
   display: none;
+  border: 1px solid #4472c4;
   padding-inline-start: 0 !important;
   margin-top: -8px !important;
   margin-left: 0px !important;
 }
+ul.autocomplete > li {
+  height: fit-content;
+}
+
 ul.autocompleteAtivo {
   display: block;
 }
@@ -817,7 +822,10 @@ ul.autocomplete > li > textarea {
   background-color: #fff9c4 !important;
   padding: 0.4rem 0.4rem !important;
   font-weight: 400;
+  font-size: 14px;
+  overflow: hidden;
   resize: none;
+  height: fit-content;
   color: #1b5e20;
   text-decoration: none;
   border-radius: 3px;

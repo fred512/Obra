@@ -43,10 +43,14 @@
         {{urlVideo}}
         <i class="fa fa-close fa-2x text-danger" @click="iVideos=false"></i>
       </span>
-      <!-- <a :href="urlVideo">{{urlVideo}}</a> -->
-      <b-embed type="video" aspect="4by3" controls>
-        <source :src="urlVideo" type="video/webm" />
-      </b-embed>
+      <!-- <img alt="PDO logo" src="../assets/Videos/logo-pdo-branco.png" /> -->
+      <video ref="videoRef" controls autoplay ismuted="true">
+        <source src type="video/webm" />
+        <!-- <source src="../assets/Videos/PlanilhaZero.webm" type="video/webm" /> -->
+      </video>
+      <!-- <b-embed type="iframe" aspect="4by3" controls>
+        <source :src="urlVideo"  type="video/webm" />
+      </b-embed>-->
     </div>
     <b-modal
       id="modal-videos"
@@ -109,6 +113,7 @@ export default {
         this.tipo = "iframe";
         this.iVideos = true;
         this.$bvModal.hide("modal-videos");
+        this.$refs.videoRef.src = this.urlVideo;
       } else {
         this.urlVideo = vid.urlIntranet;
         this.tipo = "object";
@@ -123,9 +128,10 @@ export default {
     this.videos = [
       {
         descricao: "Como digitar uma planilha do zero",
-        url: "https://www.youtube.com/embed/tz8Tm466SRY",
-        urlIntranet: "../assets/Videos/PlanilhaZero.webm"
+        urlIntranet: "../assets/Videos/PlanilhaZero.webm",
+        url: "../assets/Videos/PlanilhaZero.webm"
       },
+      //        url: "https://www.youtube.com/embed/tz8Tm466SRY",
       //"C:/ProjetoObra/Obra/src/assets/Videos/Planilha-zero.avi"
       //          "//es7143sr001/GIGOVVT/Publico/AplicativosGIGOV/Obra/VideosTutoriais/Planilha-zero.avi"
       {
