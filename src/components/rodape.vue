@@ -43,14 +43,10 @@
         {{urlVideo}}
         <i class="fa fa-close fa-2x text-danger" @click="iVideos=false"></i>
       </span>
-      <!-- <img alt="PDO logo" src="../assets/Videos/logo-pdo-branco.png" /> -->
-      <video ref="videoRef" controls autoplay ismuted="true">
-        <source src type="video/webm" />
-        <!-- <source src="../assets/Videos/PlanilhaZero.webm" type="video/webm" /> -->
-      </video>
-      <!-- <b-embed type="iframe" aspect="4by3" controls>
-        <source :src="urlVideo"  type="video/webm" />
-      </b-embed>-->
+      <!-- <video controls ref="videoRef" autoplay>
+        <source src="../assets/Videos/PlanilhaZero.webm" type="video/webm" />
+      </video>-->
+      <b-embed type="video" aspect="4by3" controls autoplay>{{source}}</b-embed>
     </div>
     <b-modal
       id="modal-videos"
@@ -81,6 +77,7 @@
 <script>
 export default {
   name: "rodape",
+  components: {},
   data: function() {
     return {
       iframeWeb: false,
@@ -89,7 +86,7 @@ export default {
       videos: [],
       mostralinkservidor: false,
       urlVideo: "",
-      tipo: "iframe"
+      source: ""
     };
   },
   methods: {
@@ -109,11 +106,11 @@ export default {
         this.$local.indexOf("www.planilhadeobra") !== -1 ||
         this.$local.indexOf("localhost:8080") !== -1
       ) {
+        this.$bvModal.hide("modal-videos");
         this.urlVideo = vid.url;
         this.tipo = "iframe";
         this.iVideos = true;
-        this.$bvModal.hide("modal-videos");
-        this.$refs.videoRef.src = this.urlVideo;
+        this.source = '<source src="' + vid.url + '" type="video/webm">';
       } else {
         this.urlVideo = vid.urlIntranet;
         this.tipo = "object";
@@ -129,7 +126,7 @@ export default {
       {
         descricao: "Como digitar uma planilha do zero",
         urlIntranet: "../assets/Videos/PlanilhaZero.webm",
-        url: "../assets/Videos/PlanilhaZero.webm"
+        url: "../assets/PlanilhaZero.webm"
       },
       //        url: "https://www.youtube.com/embed/tz8Tm466SRY",
       //"C:/ProjetoObra/Obra/src/assets/Videos/Planilha-zero.avi"
