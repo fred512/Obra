@@ -38,15 +38,13 @@
         allowfullscreen
       ></b-embed>
     </div>
-    <div class="iVideos" v-if="iVideos">
+    <div class="iVideos" v-show="iVideos">
       <span title="Sair do Vídeo Tutorial">
-        {{urlVideo}}
         <i class="fa fa-close fa-2x text-danger" @click="iVideos=false"></i>
       </span>
-      <!-- <video controls ref="videoRef" autoplay>
-        <source src="../assets/Videos/PlanilhaZero.webm" type="video/webm" />
-      </video>-->
-      <b-embed type="video" aspect="4by3" controls autoplay>{{source}}</b-embed>
+      <video controls src id="videoRef" autoplay> -->
+        <!-- <source :src="urlVideo" type="video/webm" /> -->
+      </video>
     </div>
     <b-modal
       id="modal-videos"
@@ -75,11 +73,13 @@
 </template>
 
 <script>
+
 export default {
   name: "rodape",
   components: {},
   data: function() {
     return {
+      player: null,
       iframeWeb: false,
       iframeIntranet: false,
       iVideos: false,
@@ -108,9 +108,11 @@ export default {
       ) {
         this.$bvModal.hide("modal-videos");
         this.urlVideo = vid.url;
-        this.tipo = "iframe";
+        this.tipo = "iframe"; 
+        var video = document.getElementById('videoRef');
         this.iVideos = true;
-        this.source = '<source src="' + vid.url + '" type="video/webm">';
+        video.src = vid.url
+        video.play();
       } else {
         this.urlVideo = vid.urlIntranet;
         this.tipo = "object";
@@ -125,17 +127,11 @@ export default {
     this.videos = [
       {
         descricao: "Como digitar uma planilha do zero",
-        urlIntranet: "../assets/Videos/PlanilhaZero.webm",
-        url: "../assets/PlanilhaZero.webm"
+        url: "./videos/PlanilhaZero.webm"
       },
-      //        url: "https://www.youtube.com/embed/tz8Tm466SRY",
-      //"C:/ProjetoObra/Obra/src/assets/Videos/Planilha-zero.avi"
-      //          "//es7143sr001/GIGOVVT/Publico/AplicativosGIGOV/Obra/VideosTutoriais/Planilha-zero.avi"
       {
         descricao: "Como carregar uma planilha já definida",
-        url: "https://www.youtube.com/embed/HXJx1TWWQtQ",
-        urlIntranet:
-          "//es7143sr001/GIGOVVT/Publico/AplicativosGIGOV/Obra/VideosTutoriais/CARREGA-Planilha.avi"
+        url: "./videos/CarregaPlanilha.avi" 
       }
     ];
     window.addEventListener("keypress", e => {
@@ -237,9 +233,12 @@ export default {
   margin: 0 auto;
   z-index: 1;
   position: fixed;
-  top: 15%;
+  top: 10%;
   left: 7%;
   background-color: #ddd;
+}
+.iVideos video{
+  height: 80% !important;
 }
 .list-group-item {
   font-weight: 600;

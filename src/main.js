@@ -8,6 +8,7 @@ import store from "./store/store";
 import "./plugins/axios";
 import AsyncComputed from "vue-async-computed";
 import { EmbedPlugin } from "bootstrap-vue";
+
 import VueMq from "vue-mq";
 Vue.use(VueMq, {
   breakpoints: {
