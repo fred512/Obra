@@ -103,23 +103,13 @@ export default {
       }
     },
     exibeVideo(vid) {
-      if (
-        this.$local.indexOf("www.planilhadeobra") !== -1 ||
-        this.$local.indexOf("localhost:8080") !== -1
-      ) {
-        this.$bvModal.hide("modal-videos");
-        this.urlVideo = vid.url;
-        this.tipo = vid.descricao;
-        var video = document.getElementById("videoRef");
-        this.iVideos = true;
-        video.src = vid.url;
-        video.play();
-      } else {
-        this.urlVideo = vid.urlIntranet;
-        this.tipo = "object";
-        this.iVideos = true;
-        this.$bvModal.hide("modal-videos");
-      }
+      this.$bvModal.hide("modal-videos");
+      this.urlVideo = vid.url;
+      this.tipo = vid.descricao;
+      var video = document.getElementById("videoRef");
+      this.iVideos = true;
+      video.src = vid.url;
+      video.play();
     }
   },
   mounted() {
