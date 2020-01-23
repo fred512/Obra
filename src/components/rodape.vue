@@ -40,9 +40,11 @@
     </div>
     <div class="iVideos" v-show="iVideos">
       <span title="Sair do Vídeo Tutorial">
+        {{tipo}}
         <i class="fa fa-close fa-2x text-danger" @click="iVideos=false"></i>
       </span>
-      <video controls src id="videoRef" autoplay> -->
+      <video controls src id="videoRef" autoplay>
+        -->
         <!-- <source :src="urlVideo" type="video/webm" /> -->
       </video>
     </div>
@@ -73,7 +75,6 @@
 </template>
 
 <script>
-
 export default {
   name: "rodape",
   components: {},
@@ -108,10 +109,10 @@ export default {
       ) {
         this.$bvModal.hide("modal-videos");
         this.urlVideo = vid.url;
-        this.tipo = "iframe"; 
-        var video = document.getElementById('videoRef');
+        this.tipo = vid.descricao;
+        var video = document.getElementById("videoRef");
         this.iVideos = true;
-        video.src = vid.url
+        video.src = vid.url;
         video.play();
       } else {
         this.urlVideo = vid.urlIntranet;
@@ -130,8 +131,8 @@ export default {
         url: "./videos/PlanilhaZero.webm"
       },
       {
-        descricao: "Como carregar uma planilha já definida",
-        url: "./videos/CarregaPlanilha.avi" 
+        descricao: "Como carregar uma planilha já existente",
+        url: "./videos/CarregaPlanilha.webm"
       }
     ];
     window.addEventListener("keypress", e => {
@@ -228,18 +229,41 @@ export default {
   align-items: center;
 }
 .iVideos {
-  width: 85%;
-  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: 0 auto;
   z-index: 1;
   position: fixed;
-  top: 10%;
+  max-height: 90%;
+  top: 5%;
   left: 7%;
-  background-color: #ddd;
+  padding: 10px;
+  padding-right: 3px !important;
+  background-color: rgba(27, 94, 32, 05);
+  -webkit-box-shadow: inset 0px 0px 4px 1px rgba(0, 0, 3, 0.8);
+  box-shadow: 2px 2px 10px 4px rgba(0, 0, 3, 0.8);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
-.iVideos video{
-  height: 80% !important;
+.iVideos video {
+  max-height: 85% !important;
+  max-width: 90% !important;
 }
+.iVideos span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 0 10px;
+  color: #fff;
+}
+.iVideos span i {
+  margin-left: 50px;
+}
+
 .list-group-item {
   font-weight: 600;
   cursor: pointer;
