@@ -158,6 +158,9 @@ export default {
       this.guardaAlerta = false;
     }
   },
+  created() {
+    document.title = "Planilha de Obra";
+  },
   mounted() {
     if (localStorage.getItem("guardaAlerta")) {
       this.guardaAlerta = localStorage.getItem("guardaAlerta");
