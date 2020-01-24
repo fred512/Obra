@@ -228,7 +228,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  z-index: 1;
+  z-index: 99;
   position: fixed;
   max-height: 90%;
   top: 5%;
