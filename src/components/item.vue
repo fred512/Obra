@@ -200,7 +200,7 @@
             </div>
             <div>
               <strong>Data Base :</strong>
-              {{item.base.toUpperCase()}}
+              {{item.base}}
             </div>
             <div>
               <strong>Código :</strong>

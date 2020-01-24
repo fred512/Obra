@@ -87,7 +87,7 @@ export default {
       videos: [],
       mostralinkservidor: false,
       urlVideo: "",
-      source: ""
+      tipo: ""
     };
   },
   methods: {
@@ -123,6 +123,10 @@ export default {
       {
         descricao: "Como carregar uma planilha já existente",
         url: "./videos/CarregaPlanilha.webm"
+      },
+      {
+        descricao: "Verificar irregularidades numa planilha existente",
+        url: "./videos/RelatorioIrregularidades.webm"
       }
     ];
     window.addEventListener("keypress", e => {

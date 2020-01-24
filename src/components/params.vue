@@ -116,8 +116,10 @@
             placeholder="Escolha a planilha a ser lida..."
             style="text-align:left !important;"
             :value="file"
+            accept=".xlsx,.xls"
             @change="carregaArquivo()"
           ></b-form-file>
+
           <span class="titulo">Informe os dados da planilha</span>
           <div class="camposplanilha">
             <div class="field" title="Seleciona a guia da planilha">
@@ -415,8 +417,8 @@ export default {
         if (alerta) item.alerta = JSON.parse(alerta);
         var refer = critica.split("||")[2];
         if (refer > 0 && refer !== undefined) item.valor = refer;
-        var itemcritica=critica.split("||")[3];
-        if (itemcritica!='') item.base=itemcritica.base
+        var itemcritica = critica.split("||")[3];
+        if (itemcritica != ""&&itemcritica!=undefined) item.base = itemcritica.base;
         if (
           item.descr.toLowerCase() !== "total" &&
           item.descr.toLowerCase().indexOf("sub-total") < 0 &&
