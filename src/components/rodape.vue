@@ -127,6 +127,10 @@ export default {
       {
         descricao: "Verificar irregularidades numa planilha existente",
         url: "./videos/RelatorioIrregularidades.webm"
+      },
+      {
+        descricao: "Alteração de Data Base de uma planilha existente",
+        url: "./videos/AlteraDataBase.webm"
       }
     ];
     window.addEventListener("keypress", e => {
