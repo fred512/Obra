@@ -812,7 +812,7 @@ ul.autocomplete {
   margin-left: 0px !important;
 }
 ul.autocomplete > li {
-  height: fit-content;
+  /* height: fit-content; */
 }
 
 ul.autocompleteAtivo {
@@ -825,7 +825,7 @@ ul.autocomplete > li > textarea {
   font-size: 14px;
   overflow: hidden;
   resize: none;
-  height: fit-content;
+  height: auto;
   color: #1b5e20;
   text-decoration: none;
   border-radius: 3px;

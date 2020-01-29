@@ -217,6 +217,7 @@ export default {
       )
         this.showAlert = true;
     }
+    localStorage.setItem("browser", JSON.stringify(browser));
     var banner1 = "";
     if (
       this.local.indexOf("www.gigovvt") == -1 &&
