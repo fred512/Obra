@@ -226,6 +226,7 @@ export default {
       banner1 = document.querySelector("body >div:first-child");
       if (banner1 !== null)
         document.getElementById("banner1").appendChild(banner1);
+      banner1.style = "display:block";
       // var banner2 = document.querySelector("body >div:nth-child(3)");
       // document.getElementById("banner2").appendChild(banner2);
     }
@@ -485,5 +486,8 @@ body {
 }
 .fa {
   cursor: pointer;
+}
+#banner1 {
+  display: none;
 }
 </style>
