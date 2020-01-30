@@ -494,6 +494,14 @@ export default {
       var critica = await this.criticaItem(item, this.params, this);
       item.erro = JSON.parse(critica.split("||")[0]);
       item.alerta = JSON.parse(critica.split("||")[1]);
+      // ### Item repetido com valor diferente.--TODOS OS ITENS
+      if (item.erro.indexOf('Item repetido com valor diferente.')>-1){
+        this.itens.forEach(function(v){
+          if (v.codigo==item.codigo&&item!==v){
+            v.erro.push({'erro': "Item repetido com valor diferente."})
+          }
+        })
+      }
       var refer = critica.split("||")[2];
       if (refer !== undefined) item.valor = critica.split("||")[2];
       this.$store.commit("gravaItens", this.itens);
