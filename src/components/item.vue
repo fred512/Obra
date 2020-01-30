@@ -495,7 +495,7 @@ export default {
       item.erro = JSON.parse(critica.split("||")[0]);
       item.alerta = JSON.parse(critica.split("||")[1]);
       // ### Item repetido com valor diferente.--TODOS OS ITENS
-      if (item.erro.indexOf('Item repetido com valor diferente.')>-1){
+      if (JSON.stringify(item.erro).indexOf('Item repetido com valor diferente.')>-1){
         this.itens.forEach(function(v){
           if (v.codigo==item.codigo&&item!==v){
             v.erro.push({'erro': "Item repetido com valor diferente."})
