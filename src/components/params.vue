@@ -419,7 +419,7 @@ export default {
         if (refer > 0 && refer !== undefined) item.valor = refer;
         var itemcritica = critica.split("||")[3];
         if (itemcritica != "" && itemcritica != undefined)
-          item.base = itemcritica.base;
+          item.base = itemcritica;
         if (
           item.descr.toLowerCase() !== "total" &&
           item.descr.toLowerCase().indexOf("sub-total") < 0 &&
@@ -699,7 +699,11 @@ export default {
     bases() {
       if (this.params.UF == undefined || this.params.UF.length < 2) return "";
       var url = "carregabase.asp?uf=" + this.params.UF;
-      return this.$http.get(url).then(res => {
+      return this.$http.get(url,
+        { headers: {
+          'Content-type': 'application/json'
+        }}
+      ).then(res => {
         var regs = [];
         for (var i = 0; i < Object.keys(res.data).length; i++) {
           regs.push({

@@ -351,6 +351,7 @@ export default {
     async codigo({ type, target }) {
       if (type == "change") {
         var item = this.itens[this.selecionado];
+        if (target.value=='') return
         var BDI = this.params.BDI;
         var url =
           "codigo.asp?uf=" +
@@ -825,7 +826,7 @@ ul.autocomplete > li > textarea {
   font-size: 14px;
   overflow: hidden;
   resize: none;
-  height: auto;
+  height: auto !important;
   color: #1b5e20;
   text-decoration: none;
   border-radius: 3px;

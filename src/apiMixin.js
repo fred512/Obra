@@ -72,7 +72,7 @@ export default {
         })
       }
       // #####  retorno da crítica #####
-      return JSON.stringify(erro) + '||' + JSON.stringify(alerta) + '||' + refer + '||' + item
+      return JSON.stringify(erro) + '||' + JSON.stringify(alerta) + '||' + refer + '||' + item.base
     }
   },
 }
