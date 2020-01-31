@@ -131,6 +131,10 @@ export default {
       {
         descricao: "Alteração de Data Base de uma planilha existente",
         url: "./videos/AlteraDataBase.webm"
+      },
+      {
+        descricao: "Incluir composições próprias",
+        url: "./videos/IncluiComposicao.webm"
       }
     ];
     window.addEventListener("keypress", e => {

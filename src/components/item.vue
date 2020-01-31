@@ -181,8 +181,7 @@
             <div @click="excluiItem(item)" title="Exclui Item" v-if="item.edita==false">
               <i class="fa fa-trash text-danger"></i>
             </div>
-            <!-- <div @click="item.info=true;show=!show" title="Crítica Item"> -->
-            <div title="Crítica Item" :id="'info-'+i">
+            <div title="Informações do Item" :id="'info-'+i">
               <i class="fa fa-info-circle text-primary" v-if="(item.orgao!==''&&item.codigo!=='')"></i>
             </div>
           </div>
@@ -351,7 +350,7 @@ export default {
     async codigo({ type, target }) {
       if (type == "change") {
         var item = this.itens[this.selecionado];
-        if (target.value=='') return
+        if (target.value == "") return;
         var BDI = this.params.BDI;
         var url =
           "codigo.asp?uf=" +
@@ -425,7 +424,12 @@ export default {
     pesquisa(el) {
       var target = el.toString();
       if (target.length < 6) return;
-      if (this.itens[this.selecionado].orgao == "") return;
+      if (
+        this.itens[this.selecionado].orgao == "" ||
+        this.itens[this.selecionado].orgao.toUpperCase == "COMP" ||
+        this.itens[this.selecionado].orgao.toUpperCase == "CCU"
+      )
+        return;
       this.$store.commit("setLoading", true);
       this.ItensPesquisados = [];
       var url =
@@ -495,12 +499,16 @@ export default {
       item.erro = JSON.parse(critica.split("||")[0]);
       item.alerta = JSON.parse(critica.split("||")[1]);
       // ### Item repetido com valor diferente.--TODOS OS ITENS
-      if (JSON.stringify(item.erro).indexOf('Item repetido com valor diferente.')>-1){
-        this.itens.forEach(function(v){
-          if (v.codigo==item.codigo&&item!==v){
-            v.erro.push({'erro': "Item repetido com valor diferente."})
+      if (
+        JSON.stringify(item.erro).indexOf(
+          "Item repetido com valor diferente."
+        ) > -1
+      ) {
+        this.itens.forEach(function(v) {
+          if (v.codigo == item.codigo && item !== v) {
+            v.erro.push({ erro: "Item repetido com valor diferente." });
           }
-        })
+        });
       }
       var refer = critica.split("||")[2];
       if (refer !== undefined) item.valor = critica.split("||")[2];
@@ -616,16 +624,7 @@ export default {
       deep: true
     }
   },
-  mounted() {
-    // const self=this
-    // window.addEventListener("keypress", e => {
-    //   if (e.keyCode==43) {
-    //     e.stopPropagation()
-    //     e.preventDefault()
-    //     self.addRow()
-    //   }
-    // });
-  },
+  mounted() {},
   computed: {
     loading() {
       return this.$store.state.loading;
@@ -636,33 +635,13 @@ export default {
     params() {
       return this.$store.state.params;
     }
-    // ItensFiltrados(){
-    //   var itensfiltrados=[]
-    //   if (this.mostraerro){
-    //     itensfiltrados=this.itens.filter(item=>{
-    //       return item.erro.length
-    //     })
-    //   }
-    //   else if (this.mostraalerta){
-    //     itensfiltrados=this.itens.filter(item=>{
-    //       return item.alerta.length&&!item.erro.length
-    //     })
-    //   }
-    //   else{
-    //     itensfiltrados = this.itens
-    //   }
-    //   return itensfiltrados
-    // },
-    // disparaAtualizacao(){
-    //   return this.$store.state.disparaAtualizacao
-    // }
   }
 };
 </script>
 
 <style>
 .descricao {
-  margin: 10px auto !important;
+  margin: 2px !important;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -883,7 +862,7 @@ ul.autocomplete > li > textarea:focus {
 }
 .td,
 .th {
-  padding: 5px;
+  /* padding: 5px; */
   display: table-cell;
 }
 .th {
