@@ -125,7 +125,7 @@ export default {
         url: "./videos/CarregaPlanilha.webm"
       },
       {
-        descricao: "Verificar irregularidades numa planilha existente",
+        descricao: "Verificar irregularidades em uma planilha existente",
         url: "./videos/RelatorioIrregularidades.webm"
       },
       {
