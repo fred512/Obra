@@ -88,9 +88,11 @@
         </keep-alive>
       </div>
       <div class="grid" ref="grid">
-        <keep-alive>
-          <Grid />
-        </keep-alive>
+        <div class="divGrid">
+          <keep-alive>
+            <Item />
+          </keep-alive>
+        </div>
       </div>
     </div>
     <div class="rodape">
@@ -140,11 +142,11 @@
 
 <script>
 import Params from "@/components/params.vue";
-import Grid from "@/components/grid.vue";
+import Item from "@/components/item.vue"
 import Rodape from "@/components/rodape.vue";
 export default {
   name: "app",
-  components: { Params, Grid, Rodape },
+  components: { Params, Item, Rodape },
   data: function() {
     return {
       showAlert: false,
@@ -490,4 +492,23 @@ body {
 #banner1 {
   display: none;
 }
+.divGrid{
+  display: flex;
+  width:calc(100%)
+}
+.divGrid table >thead >th{
+  max-width: 98vw;
+  border: 1px solid #aaa;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  width: 5vw !important;
+  max-width: 5vw !important;
+  color: #4472c4;
+  font-weight: 700;
+  vertical-align: middle;
+}
+.acao{
+  color: #43a047  ;
+}
+
 </style>
