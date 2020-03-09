@@ -654,6 +654,7 @@ export default {
 .table > .tr > .td {
   height: 100%;
   max-width: 98vw;
+  padding: 2px;
   vertical-align: middle !important;
 }
 .table > .tr > .td > div {
@@ -758,10 +759,6 @@ export default {
 }
 .table > tbody > tr > td:last-child i:last-child {
   color: #e53935;
-}
-table > tbody > tr > td:last-child i:first-child {
-  color: #43a047;
-  margin-top: 10px;
 }
 .tr.LinhaPar {
   background-color: rgba(213, 213, 213, 0.8);
